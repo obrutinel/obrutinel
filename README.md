@@ -23,5 +23,6 @@
 <img src="https://img.shields.io/badge/-Laragon-05122A?style=flat&logo=laragon">
 <img src="https://img.shields.io/badge/-Jira-05122A?style=flat&logo=atlassian&logoColor=0052CC">
 <img src="https://img.shields.io/badge/-Trello-05122A?style=flat&logo=trello&logoColor=007AC0">
+<img src="https://img.shields.io/badge/-Trello-05122A?style=flat&logo=vuejs&logoColor=007AC0">
 
 </p>
