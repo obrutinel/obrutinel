@@ -25,15 +25,3 @@
 <img src="https://img.shields.io/badge/-Trello-05122A?style=flat&logo=trello&logoColor=007AC0">
 
 </p>
-
-
-<br />
-<p align="center">
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=obrutinel&theme=dark" alt="obrutinel" />
-</p>
-<p align="center">
-<a href="https://www.linkedin.com/in/olivierbrutinel/" rel="nofollow"><img src="https://camo.githubusercontent.com/b69828fc49d6167108b8fa659f4d9a4a94e021bc89ae7a89363bec1a6aa6790a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c696e6b6564696e2d2532333132313030452e7376673f267374796c653d666f722d7468652d6261646765266c6f676f3d6c696e6b6564696e266c6f676f436f6c6f723d776869746526636f6c6f723d626c61636b" data-canonical-src="https://img.shields.io/badge/linkedin-%2312100E.svg?&style=for-the-badge&logo=linkedin&logoColor=white&color=black" style="max-width: 100%;"></a>
-<a href="https://web-worker.fr" rel="nofollow">
-<img src="https://camo.githubusercontent.com/94df48a56660adc903a65d2eb28eeeb077f91d74ed357cf13531a8eed2929055/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f776562736974652d2532332e7376673f267374796c653d666f722d7468652d6261646765266c6f676f3d777777266c6f676f436f6c6f723d776869746525323226636f6c6f723d626c61636b" data-canonical-src="https://img.shields.io/badge/website-%23.svg?&style=for-the-badge&logo=www&logoColor=white%22&color=black" style="max-width: 100%;">
-</a>
-</p>
