@@ -92,6 +92,34 @@ d'occasion passent déjà par des pros — segment que le site met au premier pl
 1. Backend Laravel (API annonces, comptes, messagerie sécurisée).
 2. Upload photos + vraie publication d'annonces.
 3. Paiement séquestre + expédition (modèle Buycycle).
-4. Argus / cote de l'occasion — gros levier SEO.
+4. **Cote & score « bonne affaire »** (façon Argus / La Centrale) — voir ci-dessous.
 5. Import CSV de flotte pour les loueurs, favoris & alertes.
 6. Image Open Graph par annonce (rendu des illustrations en PNG).
+
+### Cote & score « bonne affaire »
+
+Objectif : afficher sur chaque annonce si le prix demandé est une bonne
+affaire par rapport au marché, comme la cote auto.
+
+**Phase 1 — score heuristique (faisable dès le prototype, sans données
+externes)** : prix théorique = prix neuf constaté × courbe de décote par
+univers (route/VTT ≈ −30 % la 1re année puis −10 %/an ; VAE plus rapide car
+batterie ; enfant/ville plus douce) × facteur état × facteur kilométrage
+(± selon km/an vs médiane de l'univers) × bonus garantie pro. Score = écart
+entre prix demandé et prix théorique → 4 étiquettes : Très bonne affaire /
+Bonne affaire / Prix du marché / Au-dessus du marché. Transparent : la fiche
+explique le calcul (levier de confiance + SEO).
+
+**Phase 2 — cote statistique réelle.** Données à constituer :
+
+| Donnée | Source | Usage |
+| --- | --- | --- |
+| Prix neuf de référence (marque/modèle/millésime/montage) | catalogues constructeurs, archives revendeurs, saisie vendeur vérifiée | point de départ de la décote |
+| Prix de vente réels (pas seulement affichés) | les transactions Biclette elles-mêmes ; en amorçage : prix affichés × durée de vie de l'annonce sur les grandes plateformes | calibrer la courbe réelle |
+| Attributs de l'annonce | déjà dans le modèle : année, état, km, groupe, taille, région, type vendeur ; VAE : capacité batterie/cycles | variables explicatives |
+| Volume par segment | ≥ ~100 ventes par segment (univers × gamme de prix) pour une cote fiable ; en dessous, fallback heuristique phase 1 | choix du modèle affiché |
+
+Modèle : régression hédonique ou gradient boosting par univers, réentraîné
+mensuellement ; intervalle de confiance affiché plutôt qu'un prix unique.
+Pages « Cote vélo [marque modèle année] » générées = très gros levier SEO
+(le trafic Argus/La Centrale de l'occasion vélo est quasi vacant).
