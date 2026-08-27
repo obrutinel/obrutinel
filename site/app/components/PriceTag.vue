@@ -5,7 +5,9 @@ const props = withDefaults(defineProps<{
   price: number
   originalPrice?: number
   size?: 'md' | 'lg'
-}>(), { size: 'md' })
+  /** false quand la remise est déjà portée par un macaron à côté. */
+  chip?: boolean
+}>(), { size: 'md', chip: true })
 
 const pct = computed(() => discountPct(props.price, props.originalPrice))
 </script>
@@ -17,7 +19,7 @@ const pct = computed(() => discountPct(props.price, props.originalPrice))
     </span>
     <template v-if="pct">
       <s class="tnum text-sm text-ink-soft">{{ formatPrice(originalPrice!) }}</s>
-      <span class="tnum rounded-full bg-flame/10 px-2 py-0.5 text-xs font-bold text-flame-deep">−{{ pct }}&nbsp;%</span>
+      <span v-if="chip" class="tnum rounded-full bg-flame/10 px-2 py-0.5 text-xs font-bold text-flame-deep">−{{ pct }}&nbsp;%</span>
     </template>
   </p>
 </template>

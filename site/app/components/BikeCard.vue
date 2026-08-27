@@ -3,10 +3,12 @@ import type { Bike } from '~/data/types'
 import { conditionLabels } from '~/data/bikes'
 import { getSeller } from '~/data/sellers'
 import { universeKind } from '~/data/universes'
+import { discountPct } from '~/utils/site'
 
 const props = defineProps<{ bike: Bike }>()
 
 const seller = computed(() => getSeller(props.bike.sellerSlug))
+const pct = computed(() => discountPct(props.bike.price, props.bike.originalPrice))
 </script>
 
 <template>
@@ -21,6 +23,13 @@ const seller = computed(() => getSeller(props.bike.sellerSlug))
       <div class="mx-auto aspect-16/10 max-w-72 transition-transform duration-250 ease-(--ease-out-strong) group-hover:scale-[1.03]">
         <BikeIllustration :kind="universeKind(bike.universe)" :color="bike.color" />
       </div>
+      <!-- Macaron de remise : le sticker soldé du showroom -->
+      <span
+        v-if="pct"
+        class="tnum headline absolute -bottom-4 right-4 z-10 flex h-12 w-12 -rotate-6 items-center justify-center rounded-full bg-flame text-[15px] text-white shadow-(--shadow-lift) transition-transform duration-200 ease-(--ease-out-strong) group-hover:rotate-0"
+      >
+        −{{ pct }}%
+      </span>
     </div>
 
     <div class="flex flex-1 flex-col gap-1.5 p-5">
@@ -35,7 +44,7 @@ const seller = computed(() => getSeller(props.bike.sellerSlug))
       </p>
 
       <div class="mt-auto flex items-end justify-between gap-3 pt-3">
-        <PriceTag :price="bike.price" :original-price="bike.originalPrice" />
+        <PriceTag :price="bike.price" :original-price="bike.originalPrice" :chip="false" />
         <p class="pb-0.5 text-sm text-ink-soft">{{ bike.city }}</p>
       </div>
     </div>

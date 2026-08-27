@@ -25,7 +25,7 @@ const links = [
           v-for="link in links"
           :key="link.to"
           :to="link.to"
-          class="text-[15px] font-medium text-ink-soft no-underline transition-colors duration-150 hover:text-ink"
+          class="text-[15px] font-medium text-ink-soft no-underline decoration-flame decoration-[3px] underline-offset-8 transition-colors duration-150 hover:text-ink hover:underline"
         >
           {{ link.label }}
         </NuxtLink>

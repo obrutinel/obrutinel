@@ -34,7 +34,11 @@ favicon, séparateurs du marquee, cercles décoratifs géants (hero, bloc vendre
 
 Tics graphiques : **point final flamme** sur les titres de section ; **mot au
 trait** (`.text-outline`, `-webkit-text-stroke`) pour un accent par écran maxi ;
-stickers légèrement inclinés (−2/−3°) qui se redressent au hover ; wordmark
+**mot en boîte flamme** (`.mark-flame`, inclinée −1,5°) réservé au H1 ;
+stickers légèrement inclinés (−2/−6°) qui se redressent au hover ; **macaron
+de remise** rond flamme sur les cartes ; **double marquee** (univers sur encre
++ slogan sur flamme, sens inverse) ; vélos qui **débordent du cadre** (tuiles
+d'univers, cercle du hero) ; trame de points `.dot-grid` sur le hero ; wordmark
 géant au trait en tête de footer.
 
 ## Composants clés

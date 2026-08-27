@@ -19,24 +19,25 @@ const isLight = computed(() => {
 
 <template>
   <article
-    class="group relative flex w-44 shrink-0 snap-start flex-col overflow-hidden rounded-2xl transition-[box-shadow,translate] duration-200 ease-(--ease-out-strong) hover:-translate-y-1 hover:shadow-(--shadow-lift-lg) sm:w-52"
+    class="group relative flex w-52 shrink-0 snap-start flex-col overflow-hidden rounded-2xl transition-[box-shadow,translate] duration-200 ease-(--ease-out-strong) hover:-translate-y-1 hover:shadow-(--shadow-lift-lg) sm:w-60"
     :style="{ backgroundColor: universe.hue }"
   >
-    <div class="px-3 pt-5">
-      <div class="mx-auto aspect-16/10 w-full transition-transform duration-250 ease-(--ease-out-strong) group-hover:scale-[1.06]">
+    <!-- Le vélo déborde du cadre : cadrage d'affiche, la roue avant est coupée -->
+    <div class="pt-5">
+      <div class="ml-[6%] aspect-16/10 w-[126%] transition-transform duration-250 ease-(--ease-out-strong) group-hover:-translate-x-2">
         <BikeIllustration :kind="universe.kind" :color="bikeBody" :ink="bikeInk" />
       </div>
     </div>
-    <div class="flex items-center justify-between gap-2 p-4 pt-2" :class="isLight ? 'text-ink' : 'text-white'">
+    <div class="flex items-end justify-between gap-2 p-4 pt-1" :class="isLight ? 'text-ink' : 'text-white'">
       <div>
-        <h3 class="headline text-lg">
+        <h3 class="headline text-2xl">
           <NuxtLink :to="`/velos/${universe.slug}`" class="no-underline after:absolute after:inset-0" :class="isLight ? 'text-ink' : 'text-white'">
             {{ universe.name }}
           </NuxtLink>
         </h3>
         <p class="tnum mt-0.5 text-xs opacity-75">{{ count }} annonce{{ count > 1 ? 's' : '' }}</p>
       </div>
-      <span class="text-xl opacity-80 transition-transform duration-200 ease-(--ease-out-strong) group-hover:translate-x-1 group-hover:opacity-100" aria-hidden="true">→</span>
+      <span class="pb-1 text-xl opacity-80 transition-transform duration-200 ease-(--ease-out-strong) group-hover:translate-x-1 group-hover:opacity-100" aria-hidden="true">→</span>
     </div>
   </article>
 </template>

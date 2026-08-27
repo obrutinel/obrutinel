@@ -115,11 +115,31 @@ body {
   .marquee > * {
     animation: marquee 36s linear infinite;
   }
+  .marquee-reverse > * {
+    animation-direction: reverse;
+    animation-duration: 44s;
+  }
 }
 @keyframes marquee {
   to {
     transform: translateX(-100%);
   }
+}
+
+/* Mot surligné façon sticker : boîte flamme légèrement inclinée. */
+@utility mark-flame {
+  display: inline-block;
+  background: var(--color-flame);
+  color: #fff;
+  padding: 0 0.14em 0.05em;
+  border-radius: 0.12em;
+  rotate: -1.5deg;
+}
+
+/* Trame de points d'atelier, à peine visible. */
+@utility dot-grid {
+  background-image: radial-gradient(var(--color-line) 1.3px, transparent 1.3px);
+  background-size: 26px 26px;
 }
 
 /* Entrées de sections : déjà visibles par défaut, motion douce ease-out. */
