@@ -10,33 +10,33 @@ const seller = computed(() => getSeller(props.bike.sellerSlug))
 </script>
 
 <template>
-  <article class="group relative flex flex-col overflow-hidden rounded-md border border-line bg-card transition-shadow duration-200 hover:shadow-[0_10px_28px_-14px_rgba(23,20,14,0.35)]">
-    <div class="relative border-b border-line px-6 pb-2 pt-4" :style="{ backgroundColor: `color-mix(in srgb, ${bike.color} 9%, var(--color-card))` }">
-      <span v-if="bike.lot" class="roadsign-label absolute left-0 top-4 z-10 rounded-r-sm bg-cartouche px-2 py-1 text-[11px] text-card">
-        Lot fin de saison
-      </span>
-      <div class="mx-auto aspect-8/5 max-w-72 transition-transform duration-200 ease-(--ease-out-strong) group-hover:-translate-y-0.5">
+  <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card transition-[box-shadow,translate] duration-200 ease-(--ease-out-strong) hover:-translate-y-0.5 hover:shadow-(--shadow-lift-lg)">
+    <div class="relative px-5 pt-5" :style="{ backgroundColor: `color-mix(in srgb, ${bike.color} 5%, #f6f6f1)` }">
+      <div class="absolute left-4 top-4 z-10 flex items-center gap-1.5">
+        <span v-if="bike.lot" class="roadsign-label rounded-full bg-flame px-2.5 py-1 text-[10.5px] leading-none text-white">
+          Lot fin de saison
+        </span>
+      </div>
+      <SellerBadge v-if="seller" :type="seller.type" class="absolute right-4 top-4 z-10" />
+      <div class="mx-auto aspect-16/10 max-w-72 transition-transform duration-250 ease-(--ease-out-strong) group-hover:scale-[1.03]">
         <BikeIllustration :kind="universeKind(bike.universe)" :color="bike.color" />
       </div>
     </div>
 
-    <div class="flex flex-1 flex-col gap-2 p-4">
-      <div class="flex items-start justify-between gap-3">
-        <h3 class="font-display text-xl font-semibold leading-tight">
-          <NuxtLink :to="`/annonce/${bike.slug}`" class="no-underline after:absolute after:inset-0 hover:underline">
-            {{ bike.title }}
-          </NuxtLink>
-        </h3>
-        <SellerBadge v-if="seller" :type="seller.type" class="mt-0.5 shrink-0" />
-      </div>
+    <div class="flex flex-1 flex-col gap-1.5 p-5">
+      <h3 class="text-[17px] font-semibold leading-snug">
+        <NuxtLink :to="`/annonce/${bike.slug}`" class="no-underline after:absolute after:inset-0">
+          {{ bike.title }}
+        </NuxtLink>
+      </h3>
 
       <p class="tnum text-sm text-ink-soft">
         {{ bike.year }} · {{ bike.size }} · {{ conditionLabels[bike.condition] }}<template v-if="bike.km"> · {{ bike.km.toLocaleString('fr-FR') }} km</template>
       </p>
 
-      <div class="mt-auto flex items-end justify-between gap-3 pt-1">
+      <div class="mt-auto flex items-end justify-between gap-3 pt-3">
         <PriceTag :price="bike.price" :original-price="bike.originalPrice" />
-        <p class="text-sm text-ink-soft">{{ bike.city }} ({{ bike.dept }})</p>
+        <p class="pb-0.5 text-sm text-ink-soft">{{ bike.city }}</p>
       </div>
     </div>
   </article>

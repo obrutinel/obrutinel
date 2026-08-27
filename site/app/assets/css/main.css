@@ -1,43 +1,47 @@
 @import "tailwindcss";
 
 /*
-  Recyclette — monde visuel « bord de route »
-  Signalétique routière française + culture vélo : jaune borne kilométrique,
-  noir asphalte, papier cassé, typographie condensée de panneau.
-  Tout changement de marque se fait ici (couleurs + faces).
+  Recyclette — monde visuel « showroom »
+  Le vélo est la vedette : fonds neutres calmes, blanc galerie, une seule
+  couleur d'action (rouge flamme), typographie Archivo étirée pour la voix,
+  Hanken Grotesk pour le texte. Tout changement de marque se fait ici.
 */
 @theme {
-  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
-  --font-sans: "Barlow", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Archivo Variable", "Archivo", "Helvetica Neue", sans-serif;
+  --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
 
-  --color-ink: #17140e;
-  --color-ink-soft: #55503f;
-  --color-paper: #f2efe6;
-  --color-card: #fbf9f2;
-  --color-line: #d8d2bf;
-  --color-borne: #ffd42e;
-  --color-borne-deep: #eab308;
-  --color-cartouche: #c03018;
-  --color-foret: #22573c;
+  --color-ink: #131512;
+  --color-ink-soft: #62665e;
+  --color-paper: #f2f2ec;
+  --color-card: #fdfdfb;
+  --color-line: #e2e2d8;
+  --color-flame: #e8401a;
+  --color-flame-deep: #c8340f;
+  --color-borne: #e8401a; /* alias hérité de l'ancien monde, à retirer en V2 */
+  --color-borne-deep: #c8340f;
+  --color-cartouche: #c8340f;
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --shadow-lift: 0 1px 2px rgba(19, 21, 18, 0.05), 0 12px 32px -16px rgba(19, 21, 18, 0.18);
+  --shadow-lift-lg: 0 2px 4px rgba(19, 21, 18, 0.05), 0 24px 56px -24px rgba(19, 21, 18, 0.28);
 }
 
 /* Les surfaces que le navigateur dessine portent aussi le design. */
 ::selection {
-  background: var(--color-borne);
-  color: var(--color-ink);
+  background: var(--color-flame);
+  color: #fff;
 }
 
 :focus-visible {
   outline: 2px solid var(--color-ink);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 html {
-  scrollbar-color: var(--color-ink-soft) var(--color-paper);
+  scrollbar-color: color-mix(in srgb, var(--color-ink-soft) 55%, var(--color-paper)) var(--color-paper);
 }
 
 body {
@@ -56,7 +60,7 @@ body {
   input,
   select,
   textarea {
-    caret-color: var(--color-cartouche);
+    caret-color: var(--color-flame);
   }
 }
 
@@ -68,12 +72,21 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Étiquette majuscule de signalétique : condensée, espacée, jamais serrée. */
-@utility roadsign-label {
+/* Voix display du showroom : Archivo étiré, serré, en chasse large. */
+@utility headline {
   font-family: var(--font-display);
+  font-stretch: 122%;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+
+/* Petite étiquette majuscule : espacée, jamais serrée (Kowalski). */
+@utility roadsign-label {
+  font-family: var(--font-sans);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
 }
 
 /* Entrées de sections : déjà visibles par défaut, motion douce ease-out. */
@@ -82,21 +95,31 @@ body {
     opacity: 1;
     transform: translateY(0);
     transition:
-      opacity 240ms var(--ease-out-strong),
-      transform 240ms var(--ease-out-strong);
+      opacity 260ms var(--ease-out-strong),
+      transform 260ms var(--ease-out-strong);
     @starting-style {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translateY(10px);
+    }
+  }
+
+  .rise-in-late {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 260ms var(--ease-out-strong) 90ms,
+      transform 260ms var(--ease-out-strong) 90ms;
+    @starting-style {
+      opacity: 0;
+      transform: translateY(10px);
     }
   }
 }
 
 /* Feedback de pression : l'interface écoute (Kowalski). */
-@media (hover: hover) and (pointer: fine) {
-  .pressable {
-    transition: transform 160ms var(--ease-out-strong);
-  }
-  .pressable:active {
-    transform: scale(0.97);
-  }
+.pressable {
+  transition: transform 160ms var(--ease-out-strong);
+}
+.pressable:active {
+  transform: scale(0.97);
 }

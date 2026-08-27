@@ -11,6 +11,7 @@ export const universes: Universe[] = [
     metaDescription:
       "VTT d'occasion vérifiés : semi-rigides, tout-suspendus, enduro, XC. Annonces de particuliers, boutiques et loueurs pros avec état détaillé et prix transparents.",
     kind: 'vtt',
+    hue: '#2f7a4d',
     faq: [
       {
         q: "Que vérifier avant d'acheter un VTT d'occasion ?",
@@ -36,6 +37,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Vélos de route d'occasion : carbone et aluminium, Shimano 105 à Dura-Ace. Annonces détaillées avec kilométrage, taille et décote réelle par rapport au neuf.",
     kind: 'route',
+    hue: '#1f53d6',
     faq: [
       {
         q: "Le carbone d'occasion est-il fiable ?",
@@ -61,6 +63,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Gravels d'occasion pour le bikepacking et les chemins : annonces vérifiées de particuliers et de pros, avec détail des montages, tailles et état des consommables.",
     kind: 'gravel',
+    hue: '#a66b2e',
     faq: [
       {
         q: 'Gravel ou vélo de route : que choisir en occasion ?',
@@ -82,6 +85,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Vélos de ville et pliants d'occasion pour le vélotaf : hollandais, single-speed urbains, Brompton. Annonces locales avec équipements détaillés.",
     kind: 'ville',
+    hue: '#3b6e8f',
     faq: [
       {
         q: "Quel prix pour un bon vélo de ville d'occasion ?",
@@ -103,6 +107,7 @@ export const universes: Universe[] = [
     metaDescription:
       "VAE d'occasion et reconditionnés : batterie et cycles de charge annoncés, moteurs Bosch et Shimano, garantie sur les vélos vendus par des professionnels.",
     kind: 'vae',
+    hue: '#12888a',
     faq: [
       {
         q: "Comment juger la batterie d'un VAE d'occasion ?",
@@ -128,6 +133,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Vélos enfant d'occasion par taille de roues : draisiennes, 14 à 26 pouces. Annonces locales, vélos légers de qualité (Woom, Btwin, Frog) à petit prix.",
     kind: 'enfant',
+    hue: '#e8a51d',
     faq: [
       {
         q: 'Quelle taille de roues pour quel âge ?',
@@ -149,6 +155,7 @@ export const universes: Universe[] = [
     metaDescription:
       "BMX d'occasion race, street et park : montages détaillés, tailles de top tube précisées, annonces de riders et de boutiques spécialisées.",
     kind: 'bmx',
+    hue: '#7a3fd1',
     faq: [
       {
         q: 'BMX race ou street : quelle différence ?',
@@ -166,6 +173,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Vélos de triathlon et contre-la-montre d'occasion : cadres aéro, prolongateurs, capteurs de puissance. Le haut de gamme chrono à prix d'occasion.",
     kind: 'triathlon',
+    hue: '#0f9bd7',
     faq: [
       {
         q: 'Un vélo de chrono peut-il servir au quotidien ?',
@@ -183,6 +191,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Fixies et singlespeeds d'occasion : montages sur cadres acier, roues hautes, moyeux flip-flop. Le vélo urbain minimaliste à petit prix.",
     kind: 'fixie',
+    hue: '#d64097',
     faq: [
       {
         q: 'Fixie ou singlespeed pour débuter ?',
@@ -200,6 +209,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Vélos cargo d'occasion : biporteurs, longtails, triporteurs électriques. Cargos de flottes professionnelles entretenus, l'alternative à la deuxième voiture.",
     kind: 'cargo',
+    hue: '#5b8c2a',
     faq: [
       {
         q: 'Longtail ou biporteur pour transporter deux enfants ?',
@@ -221,6 +231,7 @@ export const universes: Universe[] = [
     metaDescription:
       "Pièces vélo d'occasion : roues carbone, groupes Shimano et SRAM, cockpits, selles. Compatibilités détaillées, vendeurs identifiés.",
     kind: 'pieces',
+    hue: '#6b7280',
     faq: [
       {
         q: "Quelles pièces acheter d'occasion sans risque ?",

@@ -18,28 +18,34 @@ const results = computed(() => {
 <template>
   <div class="relative">
     <label for="recherche" class="sr-only">Rechercher un vélo, une marque ou une ville</label>
-    <div class="flex overflow-hidden rounded-sm border-2 border-ink bg-card focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ink">
+    <div
+      class="flex items-center gap-3 rounded-full border border-line bg-card py-2 pl-5 pr-2 shadow-(--shadow-lift) transition-shadow duration-200 focus-within:border-ink/40 focus-within:shadow-(--shadow-lift-lg)"
+    >
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" class="shrink-0 text-ink-soft" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <circle cx="8" cy="8" r="5.5" />
+        <path d="M12.2 12.2 16 16" />
+      </svg>
       <input
         id="recherche"
         v-model="query"
         type="search"
-        placeholder="Marque, modèle ou ville — ex. « Canyon », « Lyon »…"
-        class="w-full bg-transparent px-4 py-3.5 text-base outline-none placeholder:text-ink-soft/70"
+        placeholder="Marque, modèle ou ville…"
+        class="w-full bg-transparent py-1.5 text-base outline-none placeholder:text-ink-soft/60"
         autocomplete="off"
         @focus="focused = true"
         @blur="focused = false"
       >
-      <span class="roadsign-label hidden items-center bg-ink px-5 text-sm text-borne sm:flex" aria-hidden="true">
+      <span class="pressable hidden shrink-0 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-card sm:block" aria-hidden="true">
         Rechercher
       </span>
     </div>
 
     <ul
       v-if="results.length && (focused || query)"
-      class="absolute inset-x-0 top-full z-30 mt-2 overflow-hidden rounded-sm border border-line bg-card shadow-[0_16px_40px_-16px_rgba(23,20,14,0.4)]"
+      class="absolute inset-x-2 top-full z-30 mt-2 overflow-hidden rounded-2xl border border-line bg-card shadow-(--shadow-lift-lg)"
     >
       <li v-for="b in results" :key="b.slug" class="border-b border-line last:border-0">
-        <NuxtLink :to="`/annonce/${b.slug}`" class="flex items-baseline justify-between gap-4 px-4 py-3 no-underline transition-colors duration-150 hover:bg-borne/25">
+        <NuxtLink :to="`/annonce/${b.slug}`" class="flex items-baseline justify-between gap-4 px-5 py-3 no-underline transition-colors duration-150 hover:bg-paper">
           <span class="min-w-0 truncate font-medium">{{ b.title }}</span>
           <span class="tnum shrink-0 text-sm text-ink-soft">{{ formatPrice(b.price) }} · {{ b.city }}</span>
         </NuxtLink>

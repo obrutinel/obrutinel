@@ -13,27 +13,27 @@ const links = [
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 bg-ink text-card">
-    <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4 sm:px-6" aria-label="Navigation principale">
+  <header class="sticky top-0 z-40 border-b border-line bg-card/95 backdrop-blur-sm">
+    <nav class="mx-auto flex h-[68px] max-w-6xl items-center justify-between gap-6 px-4 sm:px-6" aria-label="Navigation principale">
       <NuxtLink to="/" class="flex items-center gap-2.5 no-underline" aria-label="Recyclette, accueil">
         <BrandMark :size="30" />
-        <span class="font-display text-2xl font-bold uppercase tracking-wide">Recyclette</span>
+        <span class="headline text-[22px]">recyclette</span>
       </NuxtLink>
 
-      <div class="hidden items-center gap-7 md:flex">
+      <div class="hidden items-center gap-8 md:flex">
         <NuxtLink
           v-for="link in links"
           :key="link.to"
           :to="link.to"
-          class="text-sm font-medium text-card/85 no-underline transition-colors duration-150 hover:text-borne"
+          class="text-[15px] font-medium text-ink-soft no-underline transition-colors duration-150 hover:text-ink"
         >
           {{ link.label }}
         </NuxtLink>
         <NuxtLink
           to="/vendre"
-          class="pressable roadsign-label rounded-sm bg-borne px-4 py-2 text-sm text-ink no-underline transition-colors duration-150 hover:bg-borne-deep"
+          class="pressable rounded-full bg-ink px-5 py-2.5 text-[15px] font-semibold text-card no-underline transition-colors duration-150 hover:bg-flame"
         >
-          Déposer une annonce
+          Vendre mon vélo
         </NuxtLink>
       </div>
 
@@ -56,23 +56,20 @@ const links = [
       </button>
     </nav>
 
-    <!-- Marquage axial : la ligne jaune discontinue de la chaussée. -->
-    <div class="h-[3px] w-full" style="background: repeating-linear-gradient(90deg, var(--color-borne) 0 26px, transparent 26px 44px)" aria-hidden="true" />
-
-    <div v-if="open" id="menu-mobile" class="border-t border-card/10 px-4 pb-5 pt-2 md:hidden">
+    <div v-if="open" id="menu-mobile" class="border-t border-line px-4 pb-5 pt-2 md:hidden">
       <NuxtLink
         v-for="link in links"
         :key="link.to"
         :to="link.to"
-        class="block py-3 text-base font-medium text-card/90 no-underline"
+        class="block py-3 text-base font-medium text-ink no-underline"
       >
         {{ link.label }}
       </NuxtLink>
       <NuxtLink
         to="/vendre"
-        class="roadsign-label mt-2 block rounded-sm bg-borne px-4 py-3 text-center text-sm text-ink no-underline"
+        class="mt-2 block rounded-full bg-ink px-5 py-3 text-center text-[15px] font-semibold text-card no-underline"
       >
-        Déposer une annonce
+        Vendre mon vélo
       </NuxtLink>
     </div>
   </header>

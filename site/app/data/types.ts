@@ -22,6 +22,8 @@ export interface Universe {
   intro: string
   metaDescription: string
   kind: IllustrationKind
+  /** Couleur de repérage de l'univers (pastilles, vignettes). */
+  hue: string
   faq: { q: string, a: string }[]
 }
 

@@ -5,12 +5,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-08-27',
 
   css: [
-    '@fontsource/barlow-condensed/500.css',
-    '@fontsource/barlow-condensed/600.css',
-    '@fontsource/barlow-condensed/700.css',
-    '@fontsource/barlow/400.css',
-    '@fontsource/barlow/500.css',
-    '@fontsource/barlow/600.css',
+    '@fontsource-variable/archivo/wdth.css',
+    '@fontsource-variable/hanken-grotesk/index.css',
     '~/assets/css/main.css',
   ],
 

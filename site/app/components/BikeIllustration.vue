@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { IllustrationKind } from '~/data/types'
 
-// Silhouettes de vélo dessinées maison, déclinées par univers et teintées
-// par la couleur réelle du vélo. Un seul trait, une seule grammaire.
+// Illustration « catalogue » : vélo de profil, rendu deux tons + dégradés,
+// roues détaillées, transmission, ombre au sol. Déclinée par univers et
+// teintée par la couleur réelle du vélo.
 const props = withDefaults(defineProps<{
   kind: IllustrationKind
   color?: string
@@ -10,9 +11,22 @@ const props = withDefaults(defineProps<{
   ink?: string
   /** Libellé accessible ; vide = décoratif. */
   label?: string
-}>(), { color: '#17140e', ink: '#17140e', label: '' })
+}>(), { color: '#131512', ink: '#1d1f1a', label: '' })
 
-const ink = computed(() => props.ink)
+const uid = useId()
+
+function mix(hex: string, target: string, amount: number) {
+  const p = (h: string) => [1, 3, 5].map(i => Number.parseInt(h.slice(i, i + 2), 16))
+  const [r1, g1, b1] = p(hex)
+  const [r2, g2, b2] = p(target)
+  const c = (a: number, b: number) => Math.round(a + (b - a) * amount)
+  return `rgb(${c(r1!, r2!)} ${c(g1!, g2!)} ${c(b1!, b2!)})`
+}
+
+const light = computed(() => mix(props.color, '#ffffff', 0.32))
+const dark = computed(() => mix(props.color, '#000000', 0.34))
+const metal = '#a9ada3'
+const metalDark = '#5e6159'
 
 interface Geometry {
   scale: number
@@ -24,31 +38,31 @@ interface Geometry {
 }
 
 const geometries: Partial<Record<IllustrationKind, Partial<Geometry>>> = {
-  enfant: { scale: 0.68, rearX: 95, frontX: 225, wheelR: 34, tire: 8, frame: 8 },
-  bmx: { scale: 0.8, rearX: 95, frontX: 225, wheelR: 34, tire: 8, frame: 8 },
-  cargo: { rearX: 52, frontX: 268, wheelR: 36, tire: 7, frame: 7 },
+  enfant: { scale: 0.68, rearX: 190, frontX: 450, wheelR: 68, tire: 15, frame: 15 },
+  bmx: { scale: 0.8, rearX: 190, frontX: 450, wheelR: 68, tire: 15, frame: 15 },
+  cargo: { rearX: 104, frontX: 536, wheelR: 72, tire: 13, frame: 13 },
 }
 
 const g = computed<Geometry>(() => ({
   scale: 1,
-  rearX: 72,
-  frontX: 248,
-  wheelR: 42,
-  tire: props.kind === 'vtt' || props.kind === 'vae' ? 8 : props.kind === 'gravel' || props.kind === 'ville' ? 6 : 4.5,
-  frame: 7,
+  rearX: 144,
+  frontX: 496,
+  wheelR: 84,
+  tire: props.kind === 'vtt' || props.kind === 'vae' ? 15 : props.kind === 'gravel' || props.kind === 'ville' ? 12 : 9,
+  frame: 13,
   ...geometries[props.kind],
 }))
 
-const wheelY = computed(() => 180 - g.value.wheelR)
+const wheelY = computed(() => 360 - g.value.wheelR)
 
 function spokes(cx: number, cy: number, r: number) {
-  const inner = r * 0.82
+  const inner = r * 0.88
   const parts: string[] = []
-  for (const a of [15, 75, 135]) {
-    const rad = (a * Math.PI) / 180
+  for (let i = 0; i < 9; i++) {
+    const rad = ((i * 20 + 8) * Math.PI) / 180
     const dx = Math.cos(rad) * inner
     const dy = Math.sin(rad) * inner
-    parts.push(`M${cx - dx} ${cy - dy}L${cx + dx} ${cy + dy}`)
+    parts.push(`M${(cx - dx).toFixed(1)} ${(cy - dy).toFixed(1)}L${(cx + dx).toFixed(1)} ${(cy + dy).toFixed(1)}`)
   }
   return parts.join('')
 }
@@ -57,127 +71,193 @@ const transform = computed(() => {
   const s = g.value.scale
   if (s === 1)
     return undefined
-  // Réduction ancrée sur la ligne de sol, centrée horizontalement.
-  return `translate(${160 * (1 - s)}, ${180 * (1 - s)}) scale(${s})`
+  return `translate(${320 * (1 - s)}, ${368 * (1 - s)}) scale(${s})`
 })
+
+const isDiamond = computed(() => ['vtt', 'route', 'gravel', 'fixie', 'triathlon'].includes(props.kind))
 </script>
 
 <template>
   <svg
-    viewBox="0 0 320 200"
+    viewBox="0 0 640 420"
     fill="none"
     :role="label ? 'img' : undefined"
     :aria-label="label || undefined"
     :aria-hidden="label ? undefined : 'true'"
     class="h-full w-full"
   >
+    <defs>
+      <linearGradient :id="`f-${uid}`" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" :stop-color="light" />
+        <stop offset="0.45" :stop-color="color" />
+        <stop offset="1" :stop-color="dark" />
+      </linearGradient>
+      <linearGradient :id="`t-${uid}`" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" :stop-color="mix(ink, '#ffffff', 0.16)" />
+        <stop offset="1" :stop-color="ink" />
+      </linearGradient>
+    </defs>
+
     <g :transform="transform" stroke-linecap="round" stroke-linejoin="round">
-      <!-- Pièces détachées : roue + plateau, pas de vélo complet -->
+      <!-- Ombre au sol -->
+      <ellipse cx="320" cy="372" rx="252" ry="13" :fill="ink" opacity="0.10" />
+      <ellipse cx="320" cy="372" rx="160" ry="8" :fill="ink" opacity="0.08" />
+
+      <!-- Pièces détachées : roue + plateau -->
       <template v-if="kind === 'pieces'">
-        <circle cx="120" cy="112" r="62" :stroke="ink" :stroke-width="8" />
-        <circle cx="120" cy="112" r="50" :stroke="color" stroke-width="5" />
-        <path :d="spokes(120, 112, 48)" :stroke="ink" stroke-width="2.5" />
-        <circle cx="120" cy="112" r="7" :fill="ink" />
-        <circle cx="236" cy="136" r="34" :stroke="color" stroke-width="6" />
-        <circle cx="236" cy="136" r="10" :stroke="ink" stroke-width="5" />
-        <path d="M236 102v-16M236 170v16M202 136h-16M270 136h16" :stroke="ink" stroke-width="5" />
+        <circle cx="240" cy="222" r="126" :stroke="`url(#t-${uid})`" stroke-width="17" />
+        <circle cx="240" cy="222" r="103" :stroke="`url(#f-${uid})`" stroke-width="15" />
+        <path :d="spokes(240, 222, 96)" :stroke="metalDark" stroke-width="2.4" />
+        <circle cx="240" cy="222" r="16" :fill="metal" :stroke="metalDark" stroke-width="3" />
+        <circle cx="470" cy="272" r="66" :stroke="`url(#f-${uid})`" stroke-width="8" />
+        <circle cx="470" cy="272" r="48" :stroke="metalDark" stroke-width="3" />
+        <circle cx="470" cy="272" r="14" :fill="metal" :stroke="metalDark" stroke-width="4" />
+        <path d="M470 206v-26M470 338v26M404 272h-26M536 272h26" :stroke="metalDark" stroke-width="8" />
       </template>
 
       <template v-else>
         <!-- Roues -->
-        <circle v-if="kind === 'triathlon'" :cx="g.rearX" :cy="wheelY" :r="g.wheelR - 4" :fill="ink" />
-        <circle :cx="g.rearX" :cy="wheelY" :r="g.wheelR" :stroke="ink" :stroke-width="g.tire" />
-        <circle :cx="g.frontX" :cy="wheelY" :r="g.wheelR" :stroke="ink" :stroke-width="g.tire" />
-        <path v-if="kind !== 'triathlon'" :d="spokes(g.rearX, wheelY, g.wheelR - g.tire / 2 - 1)" :stroke="ink" stroke-width="1.6" opacity="0.55" />
-        <path :d="spokes(g.frontX, wheelY, g.wheelR - g.tire / 2 - 1)" :stroke="ink" stroke-width="1.6" opacity="0.55" />
-        <circle :cx="g.rearX" :cy="wheelY" r="4" :fill="ink" />
-        <circle :cx="g.frontX" :cy="wheelY" r="4" :fill="ink" />
+        <template v-for="cx in [g.rearX, g.frontX]" :key="cx">
+          <circle v-if="kind === 'triathlon' && cx === g.rearX" :cx="cx" :cy="wheelY" :r="g.wheelR - 8" fill="#262823" />
+          <circle :cx="cx" :cy="wheelY" :r="g.wheelR" :stroke="`url(#t-${uid})`" :stroke-width="g.tire" />
+          <path :d="`M${cx - g.wheelR * 0.62} ${wheelY - g.wheelR * 0.72} A${g.wheelR} ${g.wheelR} 0 0 1 ${cx + g.wheelR * 0.62} ${wheelY - g.wheelR * 0.72}`" stroke="#ffffff" stroke-width="2.5" opacity="0.14" fill="none" />
+          <circle :cx="cx" :cy="wheelY" :r="g.wheelR - g.tire / 2 - 5" stroke="#31332d" :stroke-width="kind === 'route' || kind === 'triathlon' ? 11 : 6" />
+          <template v-if="!(kind === 'triathlon' && cx === g.rearX)">
+            <path :d="spokes(cx, wheelY, g.wheelR - g.tire / 2 - 9)" :stroke="metalDark" stroke-width="1.7" opacity="0.85" />
+          </template>
+          <circle :cx="cx" :cy="wheelY" r="17" :stroke="metal" stroke-width="3.5" opacity="0.9" />
+          <circle :cx="cx" :cy="wheelY" r="8" :fill="metal" :stroke="metalDark" stroke-width="2.5" />
+        </template>
+        <!-- Cassette + dérailleur arrière -->
+        <template v-if="isDiamond">
+          <circle :cx="g.rearX" :cy="wheelY" r="26" :stroke="metalDark" stroke-width="1.6" opacity="0.9" />
+          <circle :cx="g.rearX" :cy="wheelY" r="32" :stroke="metalDark" stroke-width="1.6" opacity="0.7" />
+          <path :d="`M${g.rearX + 6} ${wheelY + 34} l4 22`" :stroke="ink" stroke-width="6" />
+          <circle :cx="g.rearX + 12" :cy="wheelY + 58" r="7" :fill="metalDark" />
+        </template>
 
-        <!-- Cadres par famille -->
+        <!-- ================= Cadres ================= -->
+
+        <!-- Ville / VAE : col-de-cygne -->
         <template v-if="kind === 'ville' || kind === 'vae'">
-          <!-- Cadre ouvert col-de-cygne -->
-          <path d="M216 86 C186 122 152 132 138 138" :stroke="color" :stroke-width="g.frame" />
-          <path :d="`M138 138 L${g.rearX} ${wheelY}`" :stroke="color" :stroke-width="g.frame" />
-          <path d="M138 138 L130 80" :stroke="color" :stroke-width="g.frame" />
-          <path :d="`M${g.rearX} ${wheelY} L130 92`" :stroke="color" :stroke-width="g.frame - 1.5" />
-          <path :d="`M216 86 L${g.frontX} ${wheelY}`" :stroke="color" :stroke-width="g.frame" />
-          <!-- Garde-boue + porte-bagages -->
-          <path :d="`M${g.rearX - g.wheelR - 4} ${wheelY} A ${g.wheelR + 4} ${g.wheelR + 4} 0 0 1 ${g.rearX + g.wheelR + 4} ${wheelY}`" :stroke="ink" stroke-width="3" />
-          <path :d="`M${g.rearX - 26} 94 H${g.rearX + 30} M${g.rearX + 26} 94 L${g.rearX} ${wheelY - 8}`" :stroke="ink" stroke-width="4" />
-          <!-- Guidon relevé + selle -->
-          <path d="M216 86 L212 66 L196 60" :stroke="ink" stroke-width="5" />
-          <path d="M118 78 H144" :stroke="ink" stroke-width="7" />
-          <path d="M130 92 L130 80" :stroke="ink" stroke-width="4" />
-          <!-- VAE : batterie sur le tube + moteur au pédalier -->
+          <path :d="`M${g.rearX - g.wheelR - 9} ${wheelY} A ${g.wheelR + 9} ${g.wheelR + 9} 0 0 1 ${g.rearX + g.wheelR + 9} ${wheelY}`" :stroke="dark" stroke-width="6" />
+          <path :d="`M${g.frontX - g.wheelR - 9} ${wheelY - 20} A ${g.wheelR + 9} ${g.wheelR + 9} 0 0 1 ${g.frontX + g.wheelR + 4} ${wheelY + 14}`" :stroke="dark" stroke-width="6" />
+          <path d="M432 172 C372 244 304 264 276 276" :stroke="`url(#f-${uid})`" :stroke-width="g.frame + 3" />
+          <path :d="`M276 276 L${g.rearX} ${wheelY}`" :stroke="`url(#f-${uid})`" :stroke-width="g.frame" />
+          <path d="M276 276 L260 160" :stroke="`url(#f-${uid})`" :stroke-width="g.frame" />
+          <path :d="`M${g.rearX} ${wheelY} L260 184`" :stroke="`url(#f-${uid})`" :stroke-width="g.frame - 3" />
+          <path :d="`M432 172 L${g.frontX} ${wheelY}`" :stroke="`url(#f-${uid})`" :stroke-width="g.frame - 1" />
+          <!-- Porte-bagages -->
+          <path :d="`M${g.rearX - 52} 188 H${g.rearX + 60} M${g.rearX + 52} 188 L${g.rearX} ${wheelY - 16} M${g.rearX - 44} 188 L${g.rearX - 20} ${wheelY - 10}`" :stroke="ink" stroke-width="6" />
+          <!-- Guidon relevé + poignée -->
+          <path d="M432 172 L424 132 L392 120" :stroke="`url(#t-${uid})`" stroke-width="9" />
+          <path d="M392 120 L372 116" :stroke="dark" stroke-width="13" />
+          <!-- Selle -->
+          <path d="M260 184 L260 152" :stroke="metal" stroke-width="7" />
+          <path d="M232 148 Q236 138 252 138 L286 142 Q290 150 282 154 L240 156 Q232 154 232 148Z" :fill="ink" />
+          <!-- VAE : batterie + moteur -->
           <template v-if="kind === 'vae'">
-            <path d="M204 96 C182 122 158 132 146 136" :stroke="ink" stroke-width="11" />
-            <circle cx="138" cy="138" r="13" :fill="ink" />
-            <circle cx="138" cy="138" r="5" :stroke="color" stroke-width="3" />
+            <path d="M408 190 C360 244 312 262 288 272" :stroke="ink" stroke-width="19" />
+            <path d="M404 196 C360 244 316 260 296 268" stroke="#ffffff" stroke-width="2" opacity="0.25" />
+            <circle cx="276" cy="276" r="25" :fill="ink" />
+            <circle cx="276" cy="276" r="25" :stroke="dark" stroke-width="3" />
+            <circle cx="276" cy="276" r="10" :stroke="metal" stroke-width="3.5" />
           </template>
           <template v-else>
-            <circle cx="138" cy="138" r="9" :stroke="ink" stroke-width="4" />
+            <circle cx="276" cy="276" r="17" :stroke="`url(#t-${uid})`" stroke-width="7" />
+            <circle cx="276" cy="276" r="5" :fill="metalDark" />
           </template>
+          <path d="M276 276 L302 306 M302 306 h26" :stroke="ink" stroke-width="8" />
+          <path d="M328 300 h-26 v12 h26z" :fill="metalDark" rx="3" />
         </template>
 
+        <!-- Cargo longtail -->
         <template v-else-if="kind === 'cargo'">
-          <!-- Longtail : plateau arrière allongé -->
-          <path :d="`M150 142 L124 84 M150 142 L${g.rearX} ${wheelY} M150 142 L214 90 M124 84 L206 82 M${g.rearX} ${wheelY} L124 96`" :stroke="color" :stroke-width="g.frame" />
-          <path :d="`M214 90 L${g.frontX} ${wheelY} M214 90 L206 82`" :stroke="color" :stroke-width="g.frame" />
-          <!-- Plateau et arceaux -->
-          <path :d="`M${g.rearX - 22} 92 H132 M${g.rearX - 14} 92 V${wheelY - 6} M112 92 V128`" :stroke="ink" stroke-width="5" />
-          <path :d="`M${g.rearX - 22} 92 V72 M132 92 V72 M${g.rearX - 22} 72 H132`" :stroke="ink" stroke-width="4" />
+          <path :d="`M300 284 L248 168 M300 284 L${g.rearX} ${wheelY} M300 284 L428 180 M248 168 L412 164 M${g.rearX} ${wheelY} L248 192`" :stroke="`url(#f-${uid})`" :stroke-width="g.frame" />
+          <path :d="`M428 180 L${g.frontX} ${wheelY} M428 180 L412 164`" :stroke="`url(#f-${uid})`" :stroke-width="g.frame" />
+          <!-- Plateau + arceaux -->
+          <path :d="`M${g.rearX - 46} 184 H264 M${g.rearX - 28} 184 V${wheelY - 12} M224 184 V256`" :stroke="ink" stroke-width="9" />
+          <path :d="`M${g.rearX - 46} 184 V144 M264 184 V144 M${g.rearX - 46} 144 H264`" :stroke="ink" stroke-width="7" />
+          <path :d="`M${g.rearX - 46} 164 H264`" :stroke="ink" stroke-width="3" opacity="0.5" />
           <!-- Batterie + moteur -->
-          <path d="M200 92 C180 116 162 128 152 134" :stroke="ink" stroke-width="10" />
-          <circle cx="150" cy="142" r="12" :fill="ink" />
-          <circle cx="150" cy="142" r="4.5" :stroke="color" stroke-width="3" />
-          <path d="M214 90 L210 70 L194 64" :stroke="ink" stroke-width="5" />
-          <path d="M114 76 H140" :stroke="ink" stroke-width="7" />
-          <path d="M127 96 L127 76" :stroke="ink" stroke-width="4" />
+          <path d="M400 184 C360 232 324 256 304 268" :stroke="ink" stroke-width="18" />
+          <circle cx="300" cy="284" r="23" :fill="ink" />
+          <circle cx="300" cy="284" r="9" :stroke="metal" stroke-width="3.5" />
+          <path d="M428 180 L420 140 L388 128" :stroke="`url(#t-${uid})`" stroke-width="9" />
+          <path d="M388 128 L368 124" :stroke="dark" stroke-width="12" />
+          <path d="M208 148 Q212 138 228 138 L258 142 Q262 150 254 154 L216 156 Q208 154 208 148Z" :fill="ink" />
+          <path d="M252 192 L252 156" :stroke="metal" stroke-width="7" />
         </template>
 
+        <!-- BMX -->
         <template v-else-if="kind === 'bmx'">
-          <path :d="`M160 148 L120 108 M160 148 L${g.rearX + 23} ${wheelY} M${g.rearX + 23} ${wheelY} L120 108 M160 148 L206 104 M120 108 L198 96 M206 104 L198 96 M206 104 L${g.frontX} ${wheelY}`" :stroke="color" :stroke-width="g.frame" transform="translate(-20 0)" />
-          <!-- Guidon haut -->
-          <path d="M178 96 L178 62 M164 62 H196" :stroke="ink" stroke-width="6" />
-          <path d="M92 104 H112" :stroke="ink" stroke-width="6" />
-          <circle cx="140" cy="148" r="9" :stroke="ink" stroke-width="4" />
+          <g transform="translate(-40 0)">
+            <path :d="`M320 296 L240 216 M320 296 L${g.rearX + 46} ${wheelY} M${g.rearX + 46} ${wheelY} L240 216 M320 296 L412 208 M240 216 L396 192 M412 208 L396 192 M412 208 L${g.frontX + 40} ${wheelY}`" :stroke="`url(#f-${uid})`" :stroke-width="g.frame" />
+            <path d="M356 192 L356 124 M328 124 H392" :stroke="`url(#t-${uid})`" stroke-width="11" />
+            <path d="M322 124 h-18 M392 124 h18" :stroke="dark" stroke-width="13" />
+            <path d="M172 210 Q180 200 196 202 L216 208 Q218 216 210 218 L180 218 Q172 216 172 210Z" :fill="ink" />
+            <circle cx="280" cy="296" r="17" :stroke="`url(#t-${uid})`" stroke-width="7" />
+            <path d="M280 296 L306 322 M306 322 h24" :stroke="ink" stroke-width="8" />
+          </g>
         </template>
 
+        <!-- Diamant : route / VTT / gravel / fixie / triathlon -->
         <template v-else>
-          <!-- Diamant route / VTT / gravel / fixie / triathlon -->
+          <!-- Transmission -->
+          <path :d="`M300 284 L${g.rearX} ${wheelY - 14}`" stroke="#3c3e37" stroke-width="3" stroke-dasharray="7 4" opacity="0.8" />
+          <path :d="`M300 306 L${g.rearX + 10} ${wheelY + 30}`" stroke="#3c3e37" stroke-width="3" stroke-dasharray="7 4" opacity="0.6" />
+          <!-- Cadre -->
           <path
-            :d="`M150 142 L128 ${kind === 'vtt' ? 92 : 82} M150 142 L${g.rearX} ${wheelY} M${g.rearX} ${wheelY} L128 ${kind === 'vtt' ? 92 : 82} M128 ${kind === 'vtt' ? 88 : 80} L216 ${kind === 'vtt' ? 78 : 82} M150 142 L222 94 M216 78 L222 94`"
-            :stroke="color"
+            :d="`M300 284 L256 ${kind === 'vtt' ? 184 : 164} M300 284 L${g.rearX} ${wheelY} M${g.rearX} ${wheelY} L256 ${kind === 'vtt' ? 184 : 164}`"
+            :stroke="`url(#f-${uid})`"
+            :stroke-width="g.frame - 2"
+          />
+          <path
+            :d="`M256 ${kind === 'vtt' ? 176 : 160} L432 ${kind === 'vtt' ? 156 : 164} M300 284 L444 188 M432 156 L444 188`"
+            :stroke="`url(#f-${uid})`"
             :stroke-width="g.frame"
           />
-          <!-- Sacoche de cadre gravel -->
-          <path v-if="kind === 'gravel'" d="M140 128 L136 92 L200 90 Z" :fill="color" opacity="0.28" />
-          <!-- Fourche : suspendue en VTT -->
-          <path v-if="kind === 'vtt'" :d="`M222 94 L${g.frontX - 4} 112 M${g.frontX - 3} 116 L${g.frontX} ${wheelY}`" :stroke="ink" stroke-width="9" />
-          <path v-else :d="`M222 94 L${g.frontX} ${wheelY}`" :stroke="color" :stroke-width="g.frame - 1" />
-          <!-- Selle + tige -->
-          <path :d="`M128 ${kind === 'vtt' ? 92 : 82} L124 ${kind === 'vtt' ? 74 : 68}`" :stroke="ink" stroke-width="4" />
-          <path :d="`M112 ${kind === 'vtt' ? 72 : 66} H140`" :stroke="ink" stroke-width="7" />
+          <!-- Décalque -->
+          <path :d="`M330 268 L400 221`" stroke="#ffffff" stroke-width="4" opacity="0.55" />
+          <!-- Sacoche gravel -->
+          <path v-if="kind === 'gravel'" d="M282 258 L272 184 L398 180 Z" :fill="dark" opacity="0.5" />
+          <path v-if="kind === 'gravel'" d="M282 258 L272 184 L398 180 Z" stroke="#000" stroke-opacity="0.2" stroke-width="2" fill="none" />
+          <!-- Fourche -->
+          <path v-if="kind === 'vtt'" :d="`M444 188 L${g.frontX - 8} 224`" :stroke="`url(#t-${uid})`" stroke-width="17" />
+          <path v-if="kind === 'vtt'" :d="`M${g.frontX - 6} 228 L${g.frontX} ${wheelY}`" :stroke="metal" stroke-width="11" />
+          <path v-else :d="`M444 188 Q452 232 ${g.frontX} ${wheelY}`" :stroke="`url(#f-${uid})`" :stroke-width="g.frame - 3" fill="none" />
+          <!-- Tige + selle : profil fin, nez marqué -->
+          <path :d="`M256 ${kind === 'vtt' ? 184 : 164} L249 ${kind === 'vtt' ? 146 : 128}`" :stroke="metal" stroke-width="6" />
+          <g :transform="`translate(0 ${kind === 'vtt' ? 18 : 0})`">
+            <path d="M224 122 Q225 115 236 115 L262 116 Q280 117 284 121 Q285 125 278 126 L232 127 Q224 126 224 122Z" :fill="ink" />
+            <path d="M226 117 Q238 113 258 114" stroke="#ffffff" stroke-width="1.5" opacity="0.2" fill="none" />
+          </g>
           <!-- Postes de pilotage -->
           <template v-if="kind === 'vtt'">
-            <path d="M216 78 L212 62 M198 60 L224 64" :stroke="ink" stroke-width="5" />
+            <path d="M432 156 L424 124" :stroke="`url(#t-${uid})`" stroke-width="9" />
+            <path d="M396 120 L452 128" :stroke="dark" stroke-width="12" />
           </template>
           <template v-else-if="kind === 'fixie'">
-            <path d="M216 82 L214 66 M214 66 H238" :stroke="ink" stroke-width="5" />
+            <path d="M432 164 L428 132 M428 132 H476" :stroke="`url(#t-${uid})`" stroke-width="9" />
+            <path d="M462 132 h14" :stroke="dark" stroke-width="13" />
           </template>
           <template v-else-if="kind === 'triathlon'">
-            <path d="M216 82 L214 66 M206 68 H244 M210 60 H246" :stroke="ink" stroke-width="5" />
+            <path d="M432 164 L428 132 M412 136 H488 M420 120 H492" :stroke="`url(#t-${uid})`" stroke-width="9" />
+            <path d="M478 120 h14 M474 136 h14" :stroke="dark" stroke-width="12" />
           </template>
           <template v-else>
-            <path d="M216 82 L214 66 M214 66 H234 C240 66 240 78 234 78 L230 78" :stroke="ink" stroke-width="5" />
+            <path d="M432 164 L429 134" :stroke="`url(#t-${uid})`" stroke-width="8" />
+            <path d="M429 134 H468 C484 134 484 166 466 166 L458 166" :stroke="`url(#t-${uid})`" stroke-width="6.5" fill="none" />
+            <path d="M452 134 h16 Q474 136 474 146" :stroke="dark" stroke-width="9.5" fill="none" />
           </template>
-          <circle cx="150" cy="142" r="9" :stroke="ink" stroke-width="4" />
-          <path d="M150 142 L162 156 M162 156 H174" :stroke="ink" stroke-width="4.5" />
+          <!-- Pédalier -->
+          <circle cx="300" cy="284" r="27" :stroke="`url(#t-${uid})`" stroke-width="5" />
+          <circle cx="300" cy="284" r="19" :stroke="metalDark" stroke-width="2" opacity="0.8" />
+          <circle cx="300" cy="284" r="5" :fill="metalDark" />
+          <path d="M300 284 L326 312" :stroke="ink" stroke-width="9" />
+          <path d="M340 306 h-26 v12 h26z" :fill="metalDark" />
         </template>
       </template>
-
-      <!-- Ligne de sol -->
-      <path d="M16 186 H304" :stroke="ink" stroke-width="2.5" stroke-dasharray="20 14" opacity="0.35" />
     </g>
   </svg>
 </template>
