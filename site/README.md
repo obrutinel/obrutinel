@@ -30,11 +30,11 @@ npx serve .output/public
 
 ## Design
 
-Monde visuel « showroom graphique » (voir `DESIGN.md`) : blanc galerie sur papier
-pierre, rouge flamme comme unique couleur d'action, Archivo étiré pour la voix,
-motif « plateau de pédalier » décliné (logo, séparateurs, cercles décoratifs),
-tuiles d'univers en pleine couleur, typo au trait pour les accents, marquee des
-univers. Construit en suivant les skills [Impeccable](https://github.com/pbakaus/impeccable)
+Monde visuel « Altitude » (voir `DESIGN.md`) : montagne moderne et sobre —
+brume claire, vert sapin comme unique couleur de marque, pointe d'ambre pour
+les bonnes affaires, Bricolage Grotesque pour la voix, ligne de crête
+(`RidgeScape`) comme seul décor (hero + bloc vendre).
+Construit en suivant les skills [Impeccable](https://github.com/pbakaus/impeccable)
 et [Emil Kowalski](https://github.com/emilkowalski/skills) (copiés dans
 `.claude/skills/` à la racine du dépôt) : easing personnalisés, transitions
 < 300 ms, `tabular-nums` sur les prix, états hover/focus/vide, `prefers-reduced-motion`.

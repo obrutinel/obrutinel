@@ -1,43 +1,50 @@
 @import "tailwindcss";
 
 /*
-  Biclette — monde visuel « showroom »
-  Le vélo est la vedette : fonds neutres calmes, blanc galerie, une seule
-  couleur d'action (rouge flamme), typographie Archivo étirée pour la voix,
-  Hanken Grotesk pour le texte. Tout changement de marque se fait ici.
+  Biclette — monde visuel « Altitude »
+  Montagne moderne et sobre : brume claire, vert sapin comme couleur de
+  marque, une pointe d'ambre pour les bonnes affaires, la ligne de crête en
+  seul motif décoratif. Tout changement de marque se fait ici.
 */
 @theme {
-  --font-display: "Archivo Variable", "Archivo", "Helvetica Neue", sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Helvetica Neue", sans-serif;
   --font-sans: "Hanken Grotesk Variable", "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
 
-  --color-ink: #131512;
-  --color-ink-soft: #62665e;
-  --color-paper: #f2f2ec;
-  --color-card: #fdfdfb;
-  --color-line: #e2e2d8;
-  --color-flame: #e8401a;
-  --color-flame-deep: #c8340f;
-  --color-borne: #e8401a; /* alias hérité de l'ancien monde, à retirer en V2 */
-  --color-borne-deep: #c8340f;
-  --color-cartouche: #c8340f;
+  --color-ink: #1a201b;
+  --color-ink-soft: #5b675e;
+  --color-paper: #f2f4f0;
+  --color-card: #fcfdfb;
+  --color-line: #dde1d8;
+  --color-pine: #1e4d38;
+  --color-pine-deep: #143726;
+  --color-amber: #c9701f;
+  --color-amber-soft: #f0dcc3;
+
+  /* Alias hérités — utilisés par les pages intérieures, à résorber en v7. */
+  --color-flame: #c9701f;
+  --color-flame-deep: #a85a12;
+  --color-cartouche: #c9701f;
+  --color-borne: #e9b163;
+  --color-borne-deep: #c9701f;
+  --color-foret: #1e4d38;
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
 
-  --shadow-lift: 0 1px 2px rgba(19, 21, 18, 0.05), 0 12px 32px -16px rgba(19, 21, 18, 0.18);
-  --shadow-lift-lg: 0 2px 4px rgba(19, 21, 18, 0.05), 0 24px 56px -24px rgba(19, 21, 18, 0.28);
+  --shadow-lift: 0 1px 2px rgba(26, 32, 27, 0.05), 0 12px 32px -16px rgba(26, 32, 27, 0.16);
+  --shadow-lift-lg: 0 2px 4px rgba(26, 32, 27, 0.05), 0 24px 56px -24px rgba(26, 32, 27, 0.26);
 }
 
 /* Les surfaces que le navigateur dessine portent aussi le design. */
 ::selection {
-  background: var(--color-flame);
+  background: var(--color-pine);
   color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-pine);
   outline-offset: 2px;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 html {
@@ -60,7 +67,7 @@ body {
   input,
   select,
   textarea {
-    caret-color: var(--color-flame);
+    caret-color: var(--color-pine);
   }
 }
 
@@ -72,13 +79,12 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Voix display du showroom : Archivo étiré, serré, en chasse large. */
+/* Voix display : Bricolage, dense et moderne, jamais criarde. */
 @utility headline {
   font-family: var(--font-display);
-  font-stretch: 122%;
   font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.02;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
 }
 
 /* Petite étiquette majuscule : espacée, jamais serrée (Kowalski). */
@@ -89,72 +95,13 @@ body {
   letter-spacing: 0.09em;
 }
 
-/* Mot au trait : la typo devient dessin. */
-@utility text-outline {
-  color: transparent;
-  -webkit-text-stroke: 2px var(--color-ink);
-}
-
-@utility text-outline-light {
-  color: transparent;
-  -webkit-text-stroke: 2px color-mix(in srgb, var(--color-card) 32%, transparent);
-}
-
-@utility text-outline-white {
-  color: transparent;
-  -webkit-text-stroke: 2.5px #fdfdfb;
-}
-
-/* Légende verticale de marge, façon affiche. */
-@utility text-vertical {
-  writing-mode: vertical-rl;
-}
-
-/* Bandeau défilant des univers : mouvement constant → linéaire. */
-.marquee {
-  display: flex;
-  overflow: hidden;
-}
-.marquee > * {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  min-width: 100%;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .marquee > * {
-    animation: marquee 36s linear infinite;
-  }
-  .marquee-reverse > * {
-    animation-direction: reverse;
-    animation-duration: 44s;
-  }
-}
-@keyframes marquee {
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-/* Mot surligné façon sticker : boîte flamme légèrement inclinée. */
-@utility mark-flame {
-  display: inline-block;
-  background: var(--color-flame);
-  color: #fff;
-  padding: 0 0.14em 0.05em;
-  border-radius: 0.12em;
-  rotate: -1.5deg;
-}
-
-/* Trame de points d'atelier, à peine visible. */
-@utility dot-grid {
-  background-image: radial-gradient(var(--color-line) 1.3px, transparent 1.3px);
-  background-size: 26px 26px;
-}
-
-@utility dot-grid-light {
-  background-image: radial-gradient(rgb(253 253 251 / 0.13) 1.3px, transparent 1.3px);
-  background-size: 26px 26px;
+/* Courbes de niveau : texture discrète, une seule surface à la fois. */
+@utility contour {
+  background-image: repeating-radial-gradient(
+    circle at 120% -40%,
+    transparent 0 46px,
+    color-mix(in srgb, var(--color-pine) 7%, transparent) 46px 47.5px
+  );
 }
 
 /* Entrées de sections : déjà visibles par défaut, motion douce ease-out. */

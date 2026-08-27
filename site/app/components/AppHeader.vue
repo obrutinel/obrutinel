@@ -17,7 +17,7 @@ const links = [
     <nav class="mx-auto flex h-[68px] max-w-6xl items-center justify-between gap-6 px-4 sm:px-6" aria-label="Navigation principale">
       <NuxtLink to="/" class="flex items-center gap-2.5 no-underline" aria-label="Biclette, accueil">
         <BrandMark :size="30" />
-        <span class="headline text-[22px]">biclette</span>
+        <span class="headline text-[21px]">biclette</span>
       </NuxtLink>
 
       <div class="hidden items-center gap-8 md:flex">
@@ -25,13 +25,13 @@ const links = [
           v-for="link in links"
           :key="link.to"
           :to="link.to"
-          class="text-[15px] font-medium text-ink-soft no-underline decoration-flame decoration-[3px] underline-offset-8 transition-colors duration-150 hover:text-ink hover:underline"
+          class="text-[15px] font-medium text-ink-soft no-underline transition-colors duration-150 hover:text-pine"
         >
           {{ link.label }}
         </NuxtLink>
         <NuxtLink
           to="/vendre"
-          class="pressable rounded-full bg-ink px-5 py-2.5 text-[15px] font-semibold text-card no-underline transition-colors duration-150 hover:bg-flame"
+          class="pressable rounded-full bg-pine px-5 py-2.5 text-[15px] font-semibold text-white no-underline transition-colors duration-150 hover:bg-pine-deep"
         >
           Vendre mon vélo
         </NuxtLink>
@@ -67,7 +67,7 @@ const links = [
       </NuxtLink>
       <NuxtLink
         to="/vendre"
-        class="mt-2 block rounded-full bg-ink px-5 py-3 text-center text-[15px] font-semibold text-card no-underline"
+        class="mt-2 block rounded-full bg-pine px-5 py-3 text-center text-[15px] font-semibold text-white no-underline"
       >
         Vendre mon vélo
       </NuxtLink>

@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-08-27',
 
   css: [
-    '@fontsource-variable/archivo/wdth.css',
+    '@fontsource-variable/bricolage-grotesque/index.css',
     '@fontsource-variable/hanken-grotesk/index.css',
     '~/assets/css/main.css',
   ],

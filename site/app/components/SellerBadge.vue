@@ -6,8 +6,8 @@ const props = defineProps<{ type: SellerType }>()
 
 const classes: Record<SellerType, string> = {
   particulier: 'border border-line bg-paper text-ink-soft',
-  boutique: 'bg-ink text-card',
-  loueur: 'bg-flame text-white',
+  boutique: 'bg-pine text-white',
+  loueur: 'bg-amber text-white',
 }
 
 const label = computed(() => sellerTypeLabels[props.type])
