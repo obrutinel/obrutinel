@@ -26,7 +26,11 @@ déposer.
   `tabular-nums` (`.tnum`). Pas d'uppercase display, pas d'étirement.
 - **Motion** : `--ease-out-strong cubic-bezier(0.23,1,0.32,1)` ; entrées
   260 ms (`.rise-in`), hovers 150-250 ms, pression `.pressable`,
-  `prefers-reduced-motion` respecté.
+  `prefers-reduced-motion` respecté. Les crêtes ont leur propre motion :
+  entrée en parallaxe étagée (la plus lointaine bouge le moins, 800 ms),
+  lever de soleil (opacité + 22 px, 1,1 s différée) puis **brume en dérive
+  lente** (22 s / 30 s, aller-retour) — transform/opacity uniquement, figé
+  en reduced-motion.
 - **Ombres** : `--shadow-lift` / `--shadow-lift-lg` (offset + flou doux).
 
 ## Motif : la ligne de crête

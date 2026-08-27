@@ -138,3 +138,67 @@ body {
 .pressable:active {
   transform: scale(0.97);
 }
+
+/*
+  Les crêtes (RidgeScape) : entrée en parallaxe étagée — la plus lointaine
+  bouge le moins — puis brume en dérive lente. Décoratif : coupé net en
+  reduced-motion, transform/opacity uniquement.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .ridge-far,
+  .ridge-mid,
+  .ridge-near {
+    transform: translateY(0);
+    transition: transform 800ms var(--ease-out-strong);
+    @starting-style {
+      transform: translateY(14px);
+    }
+  }
+  .ridge-mid {
+    transition-delay: 90ms;
+    @starting-style {
+      transform: translateY(26px);
+    }
+  }
+  .ridge-near {
+    transition-delay: 170ms;
+    @starting-style {
+      transform: translateY(40px);
+    }
+  }
+
+  .ridge-sun {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 1100ms var(--ease-out-strong) 350ms,
+      transform 1100ms var(--ease-out-strong) 350ms;
+    @starting-style {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+  }
+
+  .ridge-mist-a {
+    animation: mist-drift 22s ease-in-out infinite alternate;
+  }
+  .ridge-mist-b {
+    animation: mist-drift 30s ease-in-out infinite alternate-reverse;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ridge-mist-a,
+  .ridge-mist-b {
+    opacity: 0.6;
+  }
+}
+
+@keyframes mist-drift {
+  from {
+    transform: translateX(-36px);
+  }
+  to {
+    transform: translateX(36px);
+  }
+}
