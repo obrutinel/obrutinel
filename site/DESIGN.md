@@ -54,6 +54,19 @@ géant au trait en tête de footer.
 - `UniverseMarquee` : bandeau noir défilant (36 s, linéaire), noms cliquables,
   figé si `prefers-reduced-motion`.
 
+## Punchlines en réserve
+
+Baselines finalistes non retenues, à faire ressortir plus tard sur le site —
+une punchline max par page, jamais en concurrence avec la baseline officielle
+(« L'occasion de bien rouler ») :
+
+- **« Déjà roulé, jamais usé. »** — candidate pour le hero de `/vendre` ou une
+  campagne (désamorce l'objection sur l'état).
+- **« Roulez, revendez, recommencez. »** — déjà en germe dans le marquee
+  slogan ; candidate pour le bloc vendre ou `/comment-ca-marche`.
+- **« Des vélos qui repartent pour un tour. »** — candidate pour `/a-propos`
+  ou la section lots de fin de saison.
+
 ## Règles
 
 - Une seule couleur d'action ; les hues d'univers ne servent jamais aux CTA.
