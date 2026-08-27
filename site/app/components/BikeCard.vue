@@ -13,7 +13,7 @@ const seller = computed(() => getSeller(props.bike.sellerSlug))
   <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card transition-[box-shadow,translate] duration-200 ease-(--ease-out-strong) hover:-translate-y-0.5 hover:shadow-(--shadow-lift-lg)">
     <div class="relative px-5 pt-5" :style="{ backgroundColor: `color-mix(in srgb, ${bike.color} 5%, #f6f6f1)` }">
       <div class="absolute left-4 top-4 z-10 flex items-center gap-1.5">
-        <span v-if="bike.lot" class="roadsign-label rounded-full bg-flame px-2.5 py-1 text-[10.5px] leading-none text-white">
+        <span v-if="bike.lot" class="roadsign-label -rotate-2 rounded-full bg-flame px-2.5 py-1 text-[10.5px] leading-none text-white">
           Lot fin de saison
         </span>
       </div>

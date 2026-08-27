@@ -30,9 +30,11 @@ npx serve .output/public
 
 ## Design
 
-Monde visuel « bord de route » : signalétique routière française + culture vélo —
-jaune borne kilométrique, noir asphalte, papier cassé, typographie condensée de
-panneau. Construit en suivant les skills [Impeccable](https://github.com/pbakaus/impeccable)
+Monde visuel « showroom graphique » (voir `DESIGN.md`) : blanc galerie sur papier
+pierre, rouge flamme comme unique couleur d'action, Archivo étiré pour la voix,
+motif « plateau de pédalier » décliné (logo, séparateurs, cercles décoratifs),
+tuiles d'univers en pleine couleur, typo au trait pour les accents, marquee des
+univers. Construit en suivant les skills [Impeccable](https://github.com/pbakaus/impeccable)
 et [Emil Kowalski](https://github.com/emilkowalski/skills) (copiés dans
 `.claude/skills/` à la racine du dépôt) : easing personnalisés, transitions
 < 300 ms, `tabular-nums` sur les prix, états hover/focus/vide, `prefers-reduced-motion`.

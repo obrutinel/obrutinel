@@ -89,6 +89,39 @@ body {
   letter-spacing: 0.09em;
 }
 
+/* Mot au trait : la typo devient dessin. */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-ink);
+}
+
+@utility text-outline-light {
+  color: transparent;
+  -webkit-text-stroke: 2px color-mix(in srgb, var(--color-card) 32%, transparent);
+}
+
+/* Bandeau défilant des univers : mouvement constant → linéaire. */
+.marquee {
+  display: flex;
+  overflow: hidden;
+}
+.marquee > * {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  min-width: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marquee > * {
+    animation: marquee 36s linear infinite;
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 /* Entrées de sections : déjà visibles par défaut, motion douce ease-out. */
 @media (prefers-reduced-motion: no-preference) {
   .rise-in {

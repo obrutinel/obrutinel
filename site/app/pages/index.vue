@@ -19,16 +19,25 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
 <template>
   <div>
     <!-- Premier viewport : la promesse, la recherche, le vélo vedette -->
-    <section class="overflow-hidden">
+    <section class="relative overflow-hidden">
+      <!-- Le motif de la marque, à l'échelle de la page -->
+      <svg class="pointer-events-none absolute -right-40 -top-56 hidden lg:block" width="620" height="620" viewBox="0 0 620 620" fill="none" aria-hidden="true">
+        <circle cx="310" cy="310" r="288" stroke="#e2e2d8" stroke-width="2" />
+        <circle cx="310" cy="310" r="196" stroke="#e2e2d8" stroke-width="2" />
+        <g fill="#e2e2d8">
+          <circle cx="310" cy="68" r="9" /><circle cx="540" cy="235" r="9" /><circle cx="452" cy="505" r="9" /><circle cx="168" cy="505" r="9" /><circle cx="80" cy="235" r="9" />
+        </g>
+      </svg>
       <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-16 pt-12 sm:px-6 lg:grid-cols-[11fr_9fr] lg:pb-20 lg:pt-16">
         <div class="rise-in">
           <p class="roadsign-label text-xs text-flame-deep">
             Le marché du vélo d'occasion vérifié
           </p>
-          <h1 class="headline mt-4 max-w-xl text-balance text-[44px] sm:text-6xl lg:text-[64px]">
-            Le vélo qu'il vous faut a&nbsp;déjà roulé.
+          <h1 class="headline mt-4 text-[44px] sm:text-6xl lg:text-7xl">
+            Le vélo qu'il vous faut<br>
+            a déjà <span class="text-outline">roulé</span><span class="text-flame">.</span>
           </h1>
-          <p class="mt-5 max-w-[46ch] text-lg leading-relaxed text-ink-soft">
+          <p class="mt-6 max-w-[46ch] text-lg leading-relaxed text-ink-soft">
             Des vélos d'occasion inspectés sous toutes les coutures, vendus par des
             particuliers soigneux, des boutiques et des loueurs qui garantissent.
           </p>
@@ -70,8 +79,14 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
 
         <!-- Le vélo vedette, exposé comme en vitrine -->
         <NuxtLink :to="`/annonce/${hero.slug}`" class="rise-in-late group relative block no-underline" :aria-label="`Voir l'annonce ${hero.title}`">
-          <div class="relative overflow-hidden rounded-3xl border border-line p-6 pb-10 shadow-(--shadow-lift) transition-shadow duration-250 ease-(--ease-out-strong) group-hover:shadow-(--shadow-lift-lg)" style="background: linear-gradient(180deg, #f9f9f5 0%, #ecece4 100%)">
-            <div class="transition-transform duration-250 ease-(--ease-out-strong) group-hover:scale-[1.02]">
+          <div class="relative overflow-hidden rounded-3xl border border-line bg-card p-6 pb-10 shadow-(--shadow-lift) transition-shadow duration-250 ease-(--ease-out-strong) group-hover:shadow-(--shadow-lift-lg)">
+            <!-- La roue en écho : un grand cercle teinté derrière le vélo -->
+            <div
+              class="absolute left-1/2 top-[46%] aspect-square w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full"
+              :style="{ backgroundColor: `color-mix(in srgb, ${hero.color} 14%, #f6f6f1)` }"
+              aria-hidden="true"
+            />
+            <div class="relative transition-transform duration-250 ease-(--ease-out-strong) group-hover:scale-[1.02]">
               <BikeIllustration kind="route" :color="hero.color" :label="`Silhouette du ${hero.title}`" />
             </div>
             <!-- Carte prix de l'annonce réelle -->
@@ -79,7 +94,7 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
               <span class="tnum headline text-xl">{{ formatPrice(hero.price) }}</span>
               <span class="text-sm leading-tight text-ink-soft">{{ hero.title }}<br><s class="tnum">{{ formatPrice(hero.originalPrice!) }}</s> neuf</span>
             </div>
-            <span class="roadsign-label absolute right-5 top-5 rounded-full bg-ink px-3 py-1.5 text-[10.5px] text-card">
+            <span class="roadsign-label absolute right-5 top-5 -rotate-3 rounded-full bg-ink px-3.5 py-2 text-[10.5px] text-card transition-transform duration-200 ease-(--ease-out-strong) group-hover:rotate-0">
               Annonce du jour
             </span>
           </div>
@@ -87,12 +102,14 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
       </div>
     </section>
 
+    <UniverseMarquee />
+
     <!-- Rail d'univers -->
     <section id="univers" class="scroll-mt-20 border-y border-line bg-card/60 py-14">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 class="headline text-3xl sm:text-4xl">Choisissez votre univers</h2>
+            <h2 class="headline text-4xl sm:text-5xl">Choisissez votre univers<span class="text-flame">.</span></h2>
             <p class="mt-2 max-w-[52ch] text-ink-soft">
               Chaque discipline a son marché, ses marques, ses points de contrôle.
               Entrez par la bonne porte.
@@ -112,7 +129,7 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
     <section id="annonces" class="mx-auto max-w-6xl scroll-mt-20 px-4 py-16 sm:px-6">
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 class="headline text-3xl sm:text-4xl">Elles viennent d'arriver</h2>
+          <h2 class="headline text-4xl sm:text-5xl">Elles viennent d'arriver<span class="text-flame">.</span></h2>
           <p class="mt-2 max-w-[52ch] text-ink-soft">
             Les belles occasions partent vite — celles-ci sont en ligne depuis moins de deux semaines.
           </p>
@@ -131,8 +148,8 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
       <div class="grid overflow-hidden rounded-3xl bg-ink text-card lg:grid-cols-[3fr_2fr]">
         <div class="p-8 sm:p-12">
           <p class="roadsign-label text-xs text-card/50">Vendre sur Recyclette</p>
-          <h2 class="headline mt-3 max-w-md text-3xl text-card sm:text-4xl">
-            Votre vélo dort ? Il vaut de l'argent.
+          <h2 class="headline mt-3 max-w-md text-4xl text-card sm:text-5xl">
+            Votre vélo dort ? Il vaut <span class="text-outline-light">de l'argent</span><span class="text-flame">.</span>
           </h2>
           <ol class="mt-7 space-y-4">
             <li class="flex gap-4">
@@ -155,11 +172,16 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
             Déposer mon annonce — gratuit
           </NuxtLink>
         </div>
-        <div class="relative hidden items-center justify-center bg-[#1d201c] p-10 lg:flex" aria-hidden="true">
+        <div class="relative hidden items-center justify-center overflow-hidden bg-[#1d201c] p-10 lg:flex" aria-hidden="true">
+          <!-- Le motif plateau, en creux dans la nuit de l'atelier -->
+          <svg class="absolute -right-24 -top-24" width="380" height="380" viewBox="0 0 380 380" fill="none">
+            <circle cx="190" cy="190" r="172" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2" />
+            <circle cx="190" cy="190" r="112" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2" />
+          </svg>
           <div class="w-full max-w-sm">
             <BikeIllustration kind="gravel" color="#a66b2e" ink="#e9e9e2" />
           </div>
-          <span class="tnum absolute bottom-8 right-8 rounded-full border border-card/20 px-3.5 py-1.5 text-sm text-card/70">
+          <span class="tnum absolute bottom-8 right-8 rotate-2 rounded-full bg-flame px-4 py-2 text-sm font-semibold text-white">
             En ligne en 5 min
           </span>
         </div>
@@ -172,7 +194,7 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
         <div class="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p class="roadsign-label text-xs text-flame-deep">L'exclusivité Recyclette</p>
-            <h2 class="headline mt-3 text-3xl sm:text-4xl">Les lots de fin de saison</h2>
+            <h2 class="headline mt-3 text-4xl sm:text-5xl">Les lots de fin de saison<span class="text-flame">.</span></h2>
             <p class="mt-3 max-w-[58ch] leading-relaxed text-ink-soft">
               Chaque automne, les loueurs renouvellent leur flotte : des vélos d'une ou deux
               saisons, suivis chaque semaine par des mécaniciens, révisés avant la vente et
@@ -191,8 +213,8 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
 
     <!-- Réassurance -->
     <section class="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[2fr_3fr]">
-      <h2 class="headline text-3xl sm:text-4xl">
-        L'occasion, sans les mauvaises surprises
+      <h2 class="headline text-4xl sm:text-5xl">
+        L'occasion, sans les mauvaises surprises<span class="text-flame">.</span>
       </h2>
       <dl class="divide-y divide-line">
         <div class="grid gap-1 py-5 first:pt-0 sm:grid-cols-[210px_1fr] sm:gap-6">

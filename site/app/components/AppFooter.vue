@@ -6,8 +6,12 @@ const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="bg-ink text-card">
-    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
+  <footer class="overflow-hidden bg-ink text-card">
+    <!-- Le nom, à l'échelle du mur -->
+    <p class="headline text-outline-light -mb-[0.12em] select-none whitespace-nowrap text-center text-[12.2vw] leading-none" aria-hidden="true">
+      recyclette
+    </p>
+    <div class="mx-auto grid max-w-6xl gap-10 border-t border-card/10 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
       <div>
         <NuxtLink to="/" class="flex items-center gap-2.5 no-underline" aria-label="Recyclette, accueil">
           <BrandMark :size="30" tone="light" />

@@ -14,14 +14,7 @@ const props = withDefaults(defineProps<{
 }>(), { color: '#131512', ink: '#1d1f1a', label: '' })
 
 const uid = useId()
-
-function mix(hex: string, target: string, amount: number) {
-  const p = (h: string) => [1, 3, 5].map(i => Number.parseInt(h.slice(i, i + 2), 16))
-  const [r1, g1, b1] = p(hex)
-  const [r2, g2, b2] = p(target)
-  const c = (a: number, b: number) => Math.round(a + (b - a) * amount)
-  return `rgb(${c(r1!, r2!)} ${c(g1!, g2!)} ${c(b1!, b2!)})`
-}
+const mix = mixHex
 
 const light = computed(() => mix(props.color, '#ffffff', 0.32))
 const dark = computed(() => mix(props.color, '#000000', 0.34))
