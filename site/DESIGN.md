@@ -38,8 +38,15 @@ trait** (`.text-outline`, `-webkit-text-stroke`) pour un accent par écran maxi 
 stickers légèrement inclinés (−2/−6°) qui se redressent au hover ; **macaron
 de remise** rond flamme sur les cartes ; **double marquee** (univers sur encre
 + slogan sur flamme, sens inverse) ; vélos qui **débordent du cadre** (tuiles
-d'univers, cercle du hero) ; trame de points `.dot-grid` sur le hero ; wordmark
-géant au trait en tête de footer.
+d'univers, vélo géant du hero coupé par le bord) ; trames de points `.dot-grid`
+/ `.dot-grid-light` ; **légende verticale** de marge (`.text-vertical`) ;
+wordmark géant au trait en tête de footer.
+
+Composition v5 « affiche totale » : hero = **aplat flamme plein écran** (titre
+XXL blanc au trait, vélo duotone blanc/rouge sombre hors champ, sticker prix
+réel) ; la page alterne des blocs pleine largeur — flamme, encre (marquee),
+papier (univers, annonces), flamme (marquee slogan), encre (bloc vendre),
+papier (lots, réassurance), encre (footer).
 
 ## Composants clés
 
