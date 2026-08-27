@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/*
+  Recyclette — monde visuel « bord de route »
+  Signalétique routière française + culture vélo : jaune borne kilométrique,
+  noir asphalte, papier cassé, typographie condensée de panneau.
+  Tout changement de marque se fait ici (couleurs + faces).
+*/
+@theme {
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Barlow", "Helvetica Neue", Arial, sans-serif;
+
+  --color-ink: #17140e;
+  --color-ink-soft: #55503f;
+  --color-paper: #f2efe6;
+  --color-card: #fbf9f2;
+  --color-line: #d8d2bf;
+  --color-borne: #ffd42e;
+  --color-borne-deep: #eab308;
+  --color-cartouche: #c03018;
+  --color-foret: #22573c;
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* Les surfaces que le navigateur dessine portent aussi le design. */
+::selection {
+  background: var(--color-borne);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+html {
+  scrollbar-color: var(--color-ink-soft) var(--color-paper);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer base {
+  a {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  input,
+  select,
+  textarea {
+    caret-color: var(--color-cartouche);
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Étiquette majuscule de signalétique : condensée, espacée, jamais serrée. */
+@utility roadsign-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Entrées de sections : déjà visibles par défaut, motion douce ease-out. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 240ms var(--ease-out-strong),
+      transform 240ms var(--ease-out-strong);
+    @starting-style {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+}
+
+/* Feedback de pression : l'interface écoute (Kowalski). */
+@media (hover: hover) and (pointer: fine) {
+  .pressable {
+    transition: transform 160ms var(--ease-out-strong);
+  }
+  .pressable:active {
+    transform: scale(0.97);
+  }
+}
