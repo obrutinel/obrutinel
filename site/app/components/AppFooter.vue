@@ -18,8 +18,8 @@ const year = new Date().getFullYear()
           <span class="headline text-[22px] text-card">recyclette</span>
         </NuxtLink>
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-card/65">
-          {{ SITE_BASELINE }}. Le marché du vélo d'occasion entre particuliers,
-          boutiques et loueurs professionnels.
+          {{ SITE_BASELINE }}. Achetez et vendez de beaux vélos entre
+          particuliers, boutiques et loueurs professionnels.
         </p>
         <p class="mt-6 text-xs text-card/40">
           Site de démonstration — les annonces présentées sont fictives.
@@ -49,7 +49,7 @@ const year = new Date().getFullYear()
     </div>
     <div class="border-t border-card/10">
       <p class="mx-auto max-w-6xl px-4 py-5 text-xs text-card/40 sm:px-6">
-        © {{ year }} Recyclette — la seconde vie des beaux vélos.
+        © {{ year }} Recyclette — l'occasion de bien rouler.
       </p>
     </div>
   </footer>

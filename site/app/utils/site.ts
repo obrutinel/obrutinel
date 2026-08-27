@@ -1,6 +1,6 @@
 export const SITE_URL = 'https://www.recyclette.fr'
 export const SITE_NAME = 'Recyclette'
-export const SITE_BASELINE = 'La seconde vie des beaux vélos'
+export const SITE_BASELINE = 'L\'occasion de bien rouler'
 
 export function absoluteUrl(path: string) {
   return `${SITE_URL}${path === '/' ? '' : path}`

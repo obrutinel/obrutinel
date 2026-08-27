@@ -1,4 +1,4 @@
-# Recyclette — la seconde vie des beaux vélos
+# Recyclette — l'occasion de bien rouler
 
 Prototype frontend haute-fidélité d'une place de marché de vélos d'occasion
 mettant en relation **particuliers**, **boutiques/ateliers** et **loueurs qui
