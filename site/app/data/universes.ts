@@ -15,7 +15,7 @@ export const universes: Universe[] = [
     faq: [
       {
         q: "Que vérifier avant d'acheter un VTT d'occasion ?",
-        a: "Les points d'usure coûteux : la transmission (chaîne, cassette, plateaux), l'état des suspensions (entretien récent ?), les roulements de direction et de boîtier, et les plaquettes de frein. Sur Recyclette, chaque annonce détaille ces points et les vélos vendus par des pros sont contrôlés.",
+        a: "Les points d'usure coûteux : la transmission (chaîne, cassette, plateaux), l'état des suspensions (entretien récent ?), les roulements de direction et de boîtier, et les plaquettes de frein. Sur Biclette, chaque annonce détaille ces points et les vélos vendus par des pros sont contrôlés.",
       },
       {
         q: "Un VTT de location est-il une bonne affaire ?",
@@ -41,7 +41,7 @@ export const universes: Universe[] = [
     faq: [
       {
         q: "Le carbone d'occasion est-il fiable ?",
-        a: "Un cadre carbone sans choc est très durable. Inspectez les zones de contrainte (boîtier, douille de direction, haubans) et demandez l'historique. Les vélos vendus par des boutiques sur Recyclette sont passés au contrôle.",
+        a: "Un cadre carbone sans choc est très durable. Inspectez les zones de contrainte (boîtier, douille de direction, haubans) et demandez l'historique. Les vélos vendus par des boutiques sur Biclette sont passés au contrôle.",
       },
       {
         q: 'Quelle décote pour un vélo de route ?',
@@ -93,7 +93,7 @@ export const universes: Universe[] = [
       },
       {
         q: 'Comment éviter les vélos volés ?',
-        a: "Exigez le numéro d'identification Bicycode et la facture d'origine quand elle existe. Sur Recyclette, les vendeurs professionnels vérifient systématiquement le fichier des vélos volés avant la mise en vente.",
+        a: "Exigez le numéro d'identification Bicycode et la facture d'origine quand elle existe. Sur Biclette, les vendeurs professionnels vérifient systématiquement le fichier des vélos volés avant la mise en vente.",
       },
     ],
   },

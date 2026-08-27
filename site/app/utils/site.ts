@@ -1,5 +1,5 @@
-export const SITE_URL = 'https://www.recyclette.fr'
-export const SITE_NAME = 'Recyclette'
+export const SITE_URL = 'https://www.biclette.com'
+export const SITE_NAME = 'Biclette'
 export const SITE_BASELINE = 'L\'occasion de bien rouler'
 
 export function absoluteUrl(path: string) {

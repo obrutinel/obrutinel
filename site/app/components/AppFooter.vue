@@ -9,13 +9,13 @@ const year = new Date().getFullYear()
   <footer class="overflow-hidden bg-ink text-card">
     <!-- Le nom, à l'échelle du mur -->
     <p class="headline text-outline-light -mb-[0.12em] select-none whitespace-nowrap text-center text-[12.2vw] leading-none" aria-hidden="true">
-      recyclette
+      biclette
     </p>
     <div class="mx-auto grid max-w-6xl gap-10 border-t border-card/10 px-4 py-14 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]">
       <div>
-        <NuxtLink to="/" class="flex items-center gap-2.5 no-underline" aria-label="Recyclette, accueil">
+        <NuxtLink to="/" class="flex items-center gap-2.5 no-underline" aria-label="Biclette, accueil">
           <BrandMark :size="30" tone="light" />
-          <span class="headline text-[22px] text-card">recyclette</span>
+          <span class="headline text-[22px] text-card">biclette</span>
         </NuxtLink>
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-card/65">
           {{ SITE_BASELINE }}. Achetez et vendez de beaux vélos entre
@@ -37,8 +37,8 @@ const year = new Date().getFullYear()
         </ul>
       </nav>
 
-      <nav aria-label="Recyclette">
-        <h2 class="roadsign-label text-xs text-card/50">Recyclette</h2>
+      <nav aria-label="Biclette">
+        <h2 class="roadsign-label text-xs text-card/50">Biclette</h2>
         <ul class="mt-4 space-y-2.5">
           <li><NuxtLink to="/vendre" class="text-sm text-card/80 no-underline transition-colors duration-150 hover:text-card">Vendre un vélo</NuxtLink></li>
           <li><NuxtLink to="/pro" class="text-sm text-card/80 no-underline transition-colors duration-150 hover:text-card">Boutiques & loueurs : déstockez</NuxtLink></li>
@@ -49,7 +49,7 @@ const year = new Date().getFullYear()
     </div>
     <div class="border-t border-card/10">
       <p class="mx-auto max-w-6xl px-4 py-5 text-xs text-card/40 sm:px-6">
-        © {{ year }} Recyclette — l'occasion de bien rouler.
+        © {{ year }} Biclette — l'occasion de bien rouler.
       </p>
     </div>
   </footer>

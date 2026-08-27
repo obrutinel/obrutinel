@@ -15,9 +15,9 @@ const links = [
 <template>
   <header class="sticky top-0 z-40 border-b border-line bg-card/95 backdrop-blur-sm">
     <nav class="mx-auto flex h-[68px] max-w-6xl items-center justify-between gap-6 px-4 sm:px-6" aria-label="Navigation principale">
-      <NuxtLink to="/" class="flex items-center gap-2.5 no-underline" aria-label="Recyclette, accueil">
+      <NuxtLink to="/" class="flex items-center gap-2.5 no-underline" aria-label="Biclette, accueil">
         <BrandMark :size="30" />
-        <span class="headline text-[22px]">recyclette</span>
+        <span class="headline text-[22px]">biclette</span>
       </NuxtLink>
 
       <div class="hidden items-center gap-8 md:flex">

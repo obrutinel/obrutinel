@@ -1,4 +1,4 @@
-# Recyclette — l'occasion de bien rouler
+# Biclette — l'occasion de bien rouler
 
 Prototype frontend haute-fidélité d'une place de marché de vélos d'occasion
 mettant en relation **particuliers**, **boutiques/ateliers** et **loueurs qui
@@ -75,7 +75,7 @@ site/
 
 ## Cibles identifiées (recherche marché 2025-2026)
 
-| Profil | Besoin | Réponse Recyclette |
+| Profil | Besoin | Réponse Biclette |
 | --- | --- | --- |
 | Sportif budget serré (VTT/route) | Décote transparente, état réel | Prix neuf constaté + fiche technique détaillée |
 | Urbain / vélotafeur | Confiance, VAE abordable | Diagnostic batterie affiché, pros garantis |

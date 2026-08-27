@@ -73,7 +73,7 @@ function next() {
       <h2 class="mt-4 font-display text-3xl font-bold uppercase">Annonce prête à partir</h2>
       <p class="mx-auto mt-3 max-w-[52ch] leading-relaxed text-ink-soft">
         <strong class="text-ink">{{ form.brand }} {{ form.model }}</strong>
-        {{ form.price ? `à ${formatPrice(Number(form.price))}` : '' }} — sur le vrai Recyclette,
+        {{ form.price ? `à ${formatPrice(Number(form.price))}` : '' }} — sur le vrai Biclette,
         elle serait maintenant en ligne dans l'univers
         {{ universes.find(u => u.slug === form.universe)?.name }}. Ce site est une démonstration :
         aucune donnée n'est envoyée ni conservée.

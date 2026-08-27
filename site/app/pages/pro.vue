@@ -5,7 +5,7 @@ import { sellers } from '~/data/sellers'
 usePageSeo({
   title: 'Boutiques & loueurs : vendez vos vélos d\'occasion et déstockez vos flottes',
   description:
-    "Espace pro Recyclette : loueurs et boutiques, publiez vos lots de fin de saison, vos reprises et vos vélos reconditionnés. Badge pro, garantie mise en avant, import de flotte.",
+    "Espace pro Biclette : loueurs et boutiques, publiez vos lots de fin de saison, vos reprises et vos vélos reconditionnés. Badge pro, garantie mise en avant, import de flotte.",
 })
 
 const lots = bikes.filter(b => b.lot)
@@ -23,7 +23,7 @@ const pros = sellers.filter(s => s.type !== 'particulier')
           </h1>
           <p class="mt-5 max-w-[54ch] text-lg leading-relaxed text-card/80">
             42 % des transactions de vélos d'occasion passent déjà par des professionnels.
-            Recyclette donne à vos fins de série, reprises et flottes de location la place
+            Biclette donne à vos fins de série, reprises et flottes de location la place
             qu'elles méritent : un badge pro visible, la garantie mise en avant, et des
             acheteurs qui cherchent exactement ça.
           </p>

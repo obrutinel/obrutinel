@@ -145,7 +145,7 @@ const specs = computed(() => {
             <p class="mt-2 font-medium">
               <NuxtLink :to="`/vendeur/${seller.slug}`" class="hover:text-cartouche">{{ seller.name }}</NuxtLink>
             </p>
-            <p class="tnum text-sm text-ink-soft">{{ seller.city }} ({{ seller.region }}) · sur Recyclette depuis {{ seller.since }}</p>
+            <p class="tnum text-sm text-ink-soft">{{ seller.city }} ({{ seller.region }}) · sur Biclette depuis {{ seller.since }}</p>
             <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-soft">{{ seller.bio }}</p>
             <NuxtLink :to="`/vendeur/${seller.slug}`" class="mt-3 inline-block text-sm font-medium no-underline hover:underline">
               Voir ses annonces →

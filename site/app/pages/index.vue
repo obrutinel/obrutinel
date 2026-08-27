@@ -156,7 +156,7 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
     <section class="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
       <div class="grid overflow-hidden rounded-3xl bg-flame text-white lg:grid-cols-[3fr_2fr]">
         <div class="p-8 sm:p-12">
-          <p class="roadsign-label text-xs text-white/60">Vendre sur Recyclette</p>
+          <p class="roadsign-label text-xs text-white/60">Vendre sur Biclette</p>
           <h2 class="headline mt-3 max-w-md text-4xl text-white sm:text-5xl">
             Votre vélo dort ? Il vaut <span class="text-outline-light">de l'argent</span>.
           </h2>
@@ -197,12 +197,12 @@ const hero = getBike('canyon-ultimate-cf-sl-2023')!
       </div>
     </section>
 
-    <!-- Lots de fin de saison : l'angle Recyclette -->
+    <!-- Lots de fin de saison : l'angle Biclette -->
     <section class="border-y border-line bg-card/60 py-16">
       <div class="mx-auto max-w-6xl px-4 sm:px-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p class="roadsign-label text-xs text-flame-deep">L'exclusivité Recyclette</p>
+            <p class="roadsign-label text-xs text-flame-deep">L'exclusivité Biclette</p>
             <h2 class="headline mt-3 text-4xl sm:text-5xl">Les lots de fin de saison<span class="text-flame">.</span></h2>
             <p class="mt-3 max-w-[58ch] leading-relaxed text-ink-soft">
               Chaque automne, les loueurs renouvellent leur flotte : des vélos d'une ou deux

@@ -1,4 +1,4 @@
-# DESIGN.md — Recyclette, monde « showroom graphique »
+# DESIGN.md — Biclette, monde « showroom graphique »
 
 Système constaté sur le build (accueil refondu ; les autres pages héritent des
 tokens et composants mais n'ont pas encore été recomposées).

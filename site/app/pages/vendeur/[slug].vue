@@ -14,7 +14,7 @@ const listings = bikesBySeller(seller.slug)
 
 usePageSeo({
   title: `${seller.name} — ${sellerTypeLabels[seller.type]} à ${seller.city}`,
-  description: `${seller.name}, ${sellerTypeLabels[seller.type].toLowerCase()} à ${seller.city} (${seller.region}) : ${listings.length} vélo${listings.length > 1 ? 's' : ''} d'occasion en vente sur Recyclette.${seller.checked ? ' Vélos contrôlés en atelier et garantis.' : ''}`,
+  description: `${seller.name}, ${sellerTypeLabels[seller.type].toLowerCase()} à ${seller.city} (${seller.region}) : ${listings.length} vélo${listings.length > 1 ? 's' : ''} d'occasion en vente sur Biclette.${seller.checked ? ' Vélos contrôlés en atelier et garantis.' : ''}`,
 })
 
 if (seller.type !== 'particulier') {
@@ -44,7 +44,7 @@ if (seller.type !== 'particulier') {
         <SellerBadge :type="seller.type" />
       </div>
       <p class="tnum mt-3 text-sm text-ink-soft">
-        {{ seller.city }} ({{ seller.region }}) · sur Recyclette depuis {{ seller.since }}
+        {{ seller.city }} ({{ seller.region }}) · sur Biclette depuis {{ seller.since }}
       </p>
       <p class="mt-4 max-w-[65ch] leading-relaxed text-ink-soft">{{ seller.bio }}</p>
       <p v-if="seller.checked" class="mt-4 inline-flex items-center gap-2 rounded-sm bg-borne/40 px-3 py-2 text-sm font-medium">

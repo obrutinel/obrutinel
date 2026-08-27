@@ -1,8 +1,8 @@
 <script setup lang="ts">
 usePageSeo({
-  title: 'À propos — pourquoi Recyclette existe',
+  title: 'À propos — pourquoi Biclette existe',
   description:
-    "Recyclette veut faire du vélo d'occasion un achat aussi sûr que le neuf : univers clairs, annonces honnêtes, pros identifiés. Notre histoire et nos convictions.",
+    "Biclette veut faire du vélo d'occasion un achat aussi sûr que le neuf : univers clairs, annonces honnêtes, pros identifiés. Notre histoire et nos convictions.",
 })
 </script>
 
@@ -25,7 +25,7 @@ usePageSeo({
           comptent, méfiance sur l'état réel, vélos volés, prix au doigt mouillé.
         </p>
         <p>
-          Recyclette est né d'une conviction simple : <strong class="text-ink">acheter un vélo
+          Biclette est né d'une conviction simple : <strong class="text-ink">acheter un vélo
           d'occasion devrait être aussi rassurant qu'acheter un vélo neuf</strong> — et souvent
           plus malin. Un cadre bien entretenu roule vingt ans ; sa décote, elle, est faite
           dès la troisième année.

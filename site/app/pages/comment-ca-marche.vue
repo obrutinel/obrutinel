@@ -2,7 +2,7 @@
 usePageSeo({
   title: 'Comment ça marche — acheter et vendre un vélo d\'occasion',
   description:
-    "Acheter ou vendre un vélo d'occasion sur Recyclette : univers clairs, annonces détaillées, vendeurs identifiés, vélos pros contrôlés et garantis. Le mode d'emploi complet.",
+    "Acheter ou vendre un vélo d'occasion sur Biclette : univers clairs, annonces détaillées, vendeurs identifiés, vélos pros contrôlés et garantis. Le mode d'emploi complet.",
 })
 
 const buySteps = [
@@ -49,7 +49,7 @@ const sellSteps = [
         Comment ça marche
       </h1>
       <p class="mt-4 max-w-[65ch] text-lg leading-relaxed text-ink-soft">
-        Recyclette est une place de marché dédiée au vélo d'occasion. Notre métier :
+        Biclette est une place de marché dédiée au vélo d'occasion. Notre métier :
         que l'acheteur sache exactement ce qu'il achète, et que le vendeur — particulier,
         boutique ou loueur — trouve son acheteur vite et au juste prix.
       </p>
@@ -85,7 +85,7 @@ const sellSteps = [
     <section class="mt-14 rounded-md bg-ink p-8 text-card sm:p-10" aria-labelledby="pro-title">
       <h2 id="pro-title" class="font-display text-3xl font-bold uppercase">Et les pros ?</h2>
       <p class="mt-3 max-w-[65ch] leading-relaxed text-card/80">
-        Boutiques et loueurs vendent sur Recyclette avec un badge professionnel, leurs
+        Boutiques et loueurs vendent sur Biclette avec un badge professionnel, leurs
         contrôles atelier et leur garantie mis en avant. Les loueurs déstockent leurs flottes
         par lots en fin de saison — des vélos récents, suivis par des mécaniciens, à prix décotés.
       </p>

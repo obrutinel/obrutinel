@@ -2,7 +2,7 @@ import { bikes } from '../../app/data/bikes'
 import { sellers } from '../../app/data/sellers'
 import { universes } from '../../app/data/universes'
 
-const SITE_URL = 'https://www.recyclette.fr'
+const SITE_URL = 'https://www.biclette.com'
 
 export default defineEventHandler((event) => {
   const staticPaths = ['/', '/vendre', '/pro', '/comment-ca-marche', '/a-propos']
