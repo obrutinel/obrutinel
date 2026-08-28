@@ -96,8 +96,15 @@ d'occasion passent déjà par des pros — segment que le site met au premier pl
 2. Upload photos + vraie publication d'annonces.
 3. Paiement séquestre + expédition (modèle Buycycle).
 4. **Cote & score « bonne affaire »** (façon Argus / La Centrale) — voir ci-dessous.
-5. Import CSV de flotte pour les loueurs, favoris & alertes.
-6. Image Open Graph par annonce (rendu des illustrations en PNG).
+5. **Comparateur d'annonces** : l'utilisateur sélectionne 2 à 4 annonces
+   (case « comparer » sur les cartes) et obtient un tableau côte à côte —
+   prix, décote, année, kilométrage, état, taille, transmission, batterie,
+   garantie, type de vendeur, distance — avec mise en évidence de la meilleure
+   valeur par ligne. Comparaison limitée au même univers pour rester
+   pertinente (on ne compare pas un VTT à un cargo) ; sélection persistée en
+   session ; entrée depuis les pages univers et les fiches annonces.
+6. Import CSV de flotte pour les loueurs, favoris & alertes.
+7. Image Open Graph par annonce (rendu des illustrations en PNG).
 
 ### Cote & score « bonne affaire »
 
@@ -126,6 +133,17 @@ Modèle : régression hédonique ou gradient boosting par univers, réentraîné
 mensuellement ; intervalle de confiance affiché plutôt qu'un prix unique.
 Pages « Cote vélo [marque modèle année] » générées = très gros levier SEO
 (le trafic Argus/La Centrale de l'occasion vélo est quasi vacant).
+
+**Visuel de la cote (demande actée).** Quand la cote est calculable pour une
+annonce (prix neuf connu ou segment avec assez de données), la fiche affiche
+une **jauge horizontale** : la fourchette du marché (min → max du segment)
+avec le curseur du prix demandé positionné dessus, zones teintées dans le
+langage Altitude (sapin = sous la cote / bonne affaire, neutre = prix du
+marché, ambre = au-dessus), et le libellé du score à côté du prix. Sur les
+cartes d'annonces, version compacte : la pastille de score seule. Quand la
+cote n'est **pas** détectable, aucun visuel — jamais de jauge « estimée » qui
+ferait semblant. La jauge apparaît aussi comme ligne du comparateur
+d'annonces (point 5 ci-dessus).
 
 ### Scan photo IA au dépôt d'annonce — décision actée
 
