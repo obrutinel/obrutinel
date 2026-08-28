@@ -126,3 +126,19 @@ Modèle : régression hédonique ou gradient boosting par univers, réentraîné
 mensuellement ; intervalle de confiance affiché plutôt qu'un prix unique.
 Pages « Cote vélo [marque modèle année] » générées = très gros levier SEO
 (le trafic Argus/La Centrale de l'occasion vélo est quasi vacant).
+
+### Scan photo IA au dépôt d'annonce — décision actée
+
+**Fournisseur retenu : API Anthropic (Claude).** À l'upload de la première
+photo, un modèle vision économique de la gamme (type Haiku, ~0,3 ct/annonce)
+extrait marque, modèle, univers, année, couleur… en JSON structuré validé
+contre le schéma d'annonce (`app/data/types.ts`), pour pré-remplir le
+formulaire (jamais de publication automatique).
+
+- Implémentation : route serveur (`server/api/scan-photo` en Nuxt, ou endpoint
+  Laravel selon le backend retenu) — la clé API reste côté serveur.
+- L'UX est déjà en place : `app/components/PhotoScan.vue` simule le parcours
+  et émet un `ScanResult` ; il suffira de remplacer la simulation par l'appel
+  réel.
+- Prérequis : clé API (console.anthropic.com), 20-30 photos réelles de test
+  pour mesurer la fiabilité champ par champ, mention RGPD dans les CGU.
