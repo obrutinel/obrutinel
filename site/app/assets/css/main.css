@@ -19,14 +19,8 @@
   --color-pine-deep: #143726;
   --color-amber: #c9701f;
   --color-amber-soft: #f0dcc3;
+  --color-amber-deep: #a85a12;
 
-  /* Alias hérités — utilisés par les pages intérieures, à résorber en v7. */
-  --color-flame: #c9701f;
-  --color-flame-deep: #a85a12;
-  --color-cartouche: #c9701f;
-  --color-borne: #e9b163;
-  --color-borne-deep: #c9701f;
-  --color-foret: #1e4d38;
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);

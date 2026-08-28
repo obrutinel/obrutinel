@@ -45,7 +45,7 @@ const sellSteps = [
     <Breadcrumbs :items="[{ label: 'Comment ça marche' }]" />
 
     <header class="mt-6 max-w-3xl">
-      <h1 class="text-balance font-display text-4xl font-bold uppercase leading-none sm:text-5xl">
+      <h1 class="headline text-balance text-4xl sm:text-5xl">
         Comment ça marche
       </h1>
       <p class="mt-4 max-w-[65ch] text-lg leading-relaxed text-ink-soft">
@@ -56,11 +56,11 @@ const sellSteps = [
     </header>
 
     <section class="mt-12" aria-labelledby="acheter-title">
-      <h2 id="acheter-title" class="font-display text-3xl font-bold uppercase">Acheter</h2>
+      <h2 id="acheter-title" class="headline text-3xl">Acheter</h2>
       <ol class="mt-6 grid gap-4 md:grid-cols-2">
-        <li v-for="(s, i) in buySteps" :key="s.title" class="rounded-md border border-line bg-card p-6">
-          <p class="tnum font-display text-4xl font-bold text-borne-deep" aria-hidden="true">{{ i + 1 }}</p>
-          <h3 class="mt-2 font-display text-xl font-semibold uppercase">{{ s.title }}</h3>
+        <li v-for="(s, i) in buySteps" :key="s.title" class="rounded-2xl border border-line bg-card p-6">
+          <p class="tnum headline text-3xl text-pine" aria-hidden="true">{{ i + 1 }}</p>
+          <h3 class="mt-2 headline text-xl">{{ s.title }}</h3>
           <p class="mt-2 max-w-[58ch] leading-relaxed text-ink-soft">{{ s.text }}</p>
         </li>
       </ol>
@@ -68,28 +68,31 @@ const sellSteps = [
 
     <section class="mt-14" aria-labelledby="vendre-title">
       <div class="flex flex-wrap items-end justify-between gap-4">
-        <h2 id="vendre-title" class="font-display text-3xl font-bold uppercase">Vendre</h2>
+        <div>
+          <p class="roadsign-label text-xs text-pine">Roulez, revendez, recommencez</p>
+          <h2 id="vendre-title" class="headline mt-1 text-3xl">Vendre</h2>
+        </div>
         <NuxtLink to="/vendre" class="text-sm font-medium no-underline hover:underline">
           Déposer une annonce →
         </NuxtLink>
       </div>
       <ol class="mt-6 grid gap-4 md:grid-cols-3">
-        <li v-for="(s, i) in sellSteps" :key="s.title" class="rounded-md border border-line bg-card p-6">
-          <p class="tnum font-display text-4xl font-bold text-borne-deep" aria-hidden="true">{{ i + 1 }}</p>
-          <h3 class="mt-2 font-display text-xl font-semibold uppercase">{{ s.title }}</h3>
+        <li v-for="(s, i) in sellSteps" :key="s.title" class="rounded-2xl border border-line bg-card p-6">
+          <p class="tnum headline text-3xl text-pine" aria-hidden="true">{{ i + 1 }}</p>
+          <h3 class="mt-2 headline text-xl">{{ s.title }}</h3>
           <p class="mt-2 leading-relaxed text-ink-soft">{{ s.text }}</p>
         </li>
       </ol>
     </section>
 
-    <section class="mt-14 rounded-md bg-ink p-8 text-card sm:p-10" aria-labelledby="pro-title">
-      <h2 id="pro-title" class="font-display text-3xl font-bold uppercase">Et les pros ?</h2>
+    <section class="mt-14 rounded-3xl bg-pine-deep p-8 text-card sm:p-10" aria-labelledby="pro-title">
+      <h2 id="pro-title" class="headline text-3xl text-card">Et les pros ?</h2>
       <p class="mt-3 max-w-[65ch] leading-relaxed text-card/80">
         Boutiques et loueurs vendent sur Biclette avec un badge professionnel, leurs
         contrôles atelier et leur garantie mis en avant. Les loueurs déstockent leurs flottes
         par lots en fin de saison — des vélos récents, suivis par des mécaniciens, à prix décotés.
       </p>
-      <NuxtLink to="/pro" class="pressable roadsign-label mt-6 inline-block rounded-sm bg-borne px-6 py-3 text-sm text-ink no-underline">
+      <NuxtLink to="/pro" class="pressable mt-6 inline-block rounded-full bg-card px-6 py-3 text-[15px] font-semibold text-pine-deep no-underline transition-colors duration-150 hover:bg-white">
         Découvrir l'espace pro
       </NuxtLink>
     </section>

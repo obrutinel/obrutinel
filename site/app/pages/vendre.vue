@@ -59,18 +59,19 @@ function next() {
     <Breadcrumbs :items="[{ label: 'Vendre un vélo' }]" />
 
     <header class="mt-6">
-      <h1 class="font-display text-4xl font-bold uppercase leading-none sm:text-5xl">Vendre son vélo</h1>
+      <p class="roadsign-label text-xs text-pine">Déjà roulé, jamais usé</p>
+      <h1 class="headline mt-2 text-4xl sm:text-5xl">Vendre son vélo</h1>
       <p class="mt-3 max-w-[60ch] leading-relaxed text-ink-soft">
         Quatre étapes, cinq minutes. Une annonce précise se vend plus vite et plus cher :
         nous vous guidons sur les points que les acheteurs regardent vraiment.
       </p>
     </header>
 
-    <div v-if="done" class="rise-in mt-10 rounded-md border border-line bg-card p-8 text-center">
+    <div v-if="done" class="rise-in mt-10 rounded-2xl border border-line bg-card p-8 text-center">
       <div class="mx-auto h-24 w-40">
-        <BikeIllustration :kind="(universes.find(u => u.slug === form.universe)?.kind) ?? 'route'" color="#17140e" />
+        <BikeIllustration :kind="(universes.find(u => u.slug === form.universe)?.kind) ?? 'route'" color="#1e4d38" />
       </div>
-      <h2 class="mt-4 font-display text-3xl font-bold uppercase">Annonce prête à partir</h2>
+      <h2 class="mt-4 headline text-3xl">Annonce prête à partir</h2>
       <p class="mx-auto mt-3 max-w-[52ch] leading-relaxed text-ink-soft">
         <strong class="text-ink">{{ form.brand }} {{ form.model }}</strong>
         {{ form.price ? `à ${formatPrice(Number(form.price))}` : '' }} — sur le vrai Biclette,
@@ -78,7 +79,7 @@ function next() {
         {{ universes.find(u => u.slug === form.universe)?.name }}. Ce site est une démonstration :
         aucune donnée n'est envoyée ni conservée.
       </p>
-      <NuxtLink to="/" class="pressable roadsign-label mt-7 inline-block rounded-sm bg-ink px-6 py-3 text-sm text-borne no-underline">
+      <NuxtLink to="/" class="pressable mt-7 inline-block rounded-full bg-pine px-6 py-3 text-[15px] font-semibold text-white no-underline transition-colors duration-150 hover:bg-pine-deep">
         Retour à l'accueil
       </NuxtLink>
     </div>
@@ -89,7 +90,7 @@ function next() {
         <li v-for="(s, i) in steps" :key="s" class="flex-1">
           <span
             class="block border-b-4 pb-2 text-xs font-medium uppercase tracking-wide transition-colors duration-200"
-            :class="i <= step ? 'border-borne-deep text-ink' : 'border-line text-ink-soft/70'"
+            :class="i <= step ? 'border-pine text-ink' : 'border-line text-ink-soft/70'"
             :aria-current="i === step ? 'step' : undefined"
           >
             <span class="tnum">{{ i + 1 }}.</span> {{ s }}
@@ -97,13 +98,13 @@ function next() {
         </li>
       </ol>
 
-      <div class="mt-8 rounded-md border border-line bg-card p-6 sm:p-8">
+      <div class="mt-8 rounded-2xl border border-line bg-card p-6 sm:p-8">
         <template v-if="step === 0">
-          <h2 class="font-display text-2xl font-bold uppercase">Quel vélo vendez-vous ?</h2>
+          <h2 class="headline text-2xl">Quel vélo vendez-vous ?</h2>
           <div class="mt-6 grid gap-5">
             <div class="grid gap-1.5">
               <label for="v-univers" class="roadsign-label text-xs text-ink-soft">Univers</label>
-              <select id="v-univers" v-model="form.universe" required class="rounded-sm border border-line bg-paper px-3 py-2.5">
+              <select id="v-univers" v-model="form.universe" required class="rounded-lg border border-line bg-paper px-3 py-2.5">
                 <option value="" disabled>Choisir…</option>
                 <option v-for="u in universes" :key="u.slug" :value="u.slug">{{ u.h1 }}</option>
               </select>
@@ -111,22 +112,22 @@ function next() {
             <div class="grid gap-5 sm:grid-cols-2">
               <div class="grid gap-1.5">
                 <label for="v-marque" class="roadsign-label text-xs text-ink-soft">Marque</label>
-                <input id="v-marque" v-model="form.brand" type="text" required placeholder="Canyon, Lapierre…" class="rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+                <input id="v-marque" v-model="form.brand" type="text" required placeholder="Canyon, Lapierre…" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
               </div>
               <div class="grid gap-1.5">
                 <label for="v-modele" class="roadsign-label text-xs text-ink-soft">Modèle</label>
-                <input id="v-modele" v-model="form.model" type="text" required placeholder="Ultimate CF SL 8" class="rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+                <input id="v-modele" v-model="form.model" type="text" required placeholder="Ultimate CF SL 8" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
               </div>
             </div>
             <div class="grid gap-1.5 sm:max-w-40">
               <label for="v-annee" class="roadsign-label text-xs text-ink-soft">Année</label>
-              <input id="v-annee" v-model="form.year" type="number" min="1970" max="2026" placeholder="2023" class="tnum rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+              <input id="v-annee" v-model="form.year" type="number" min="1970" max="2026" placeholder="2023" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
             </div>
           </div>
         </template>
 
         <template v-else-if="step === 1">
-          <h2 class="font-display text-2xl font-bold uppercase">Dans quel état ?</h2>
+          <h2 class="headline text-2xl">Dans quel état ?</h2>
           <p class="mt-2 max-w-[58ch] text-sm text-ink-soft">
             Soyez précis : transmission, freins, suspensions, batterie. Les annonces honnêtes
             reçoivent deux fois moins de négociation.
@@ -138,10 +139,10 @@ function next() {
                 <label
                   v-for="(label, value) in conditionLabels"
                   :key="value"
-                  class="flex cursor-pointer items-center gap-3 rounded-sm border px-3.5 py-2.5 transition-colors duration-150"
-                  :class="form.condition === value ? 'border-ink bg-borne/30' : 'border-line bg-paper hover:border-ink/40'"
+                  class="flex cursor-pointer items-center gap-3 rounded-lg border px-3.5 py-2.5 transition-colors duration-150"
+                  :class="form.condition === value ? 'border-pine bg-pine/10' : 'border-line bg-paper hover:border-pine/50'"
                 >
-                  <input v-model="form.condition" type="radio" name="condition" :value="value" class="accent-ink">
+                  <input v-model="form.condition" type="radio" name="condition" :value="value" class="accent-[#1e4d38]">
                   {{ label }}
                 </label>
               </div>
@@ -149,18 +150,18 @@ function next() {
             <div class="grid gap-5 sm:grid-cols-2">
               <div class="grid gap-1.5">
                 <label for="v-taille" class="roadsign-label text-xs text-ink-soft">Taille</label>
-                <input id="v-taille" v-model="form.size" type="text" required placeholder="M, 54, 29 pouces…" class="rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+                <input id="v-taille" v-model="form.size" type="text" required placeholder="M, 54, 29 pouces…" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
               </div>
               <div class="grid gap-1.5">
                 <label for="v-km" class="roadsign-label text-xs text-ink-soft">Kilométrage estimé (optionnel)</label>
-                <input id="v-km" v-model="form.km" type="number" min="0" placeholder="4 500" class="tnum rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+                <input id="v-km" v-model="form.km" type="number" min="0" placeholder="4 500" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
               </div>
             </div>
           </div>
         </template>
 
         <template v-else-if="step === 2">
-          <h2 class="font-display text-2xl font-bold uppercase">Le juste prix</h2>
+          <h2 class="headline text-2xl">Le juste prix</h2>
           <p class="mt-2 max-w-[58ch] text-sm text-ink-soft">
             Repère : −25 à −40 % la première année, puis environ −10 % par an,
             davantage si des consommables sont à prévoir.
@@ -168,28 +169,28 @@ function next() {
           <div class="mt-6 grid gap-5 sm:grid-cols-2">
             <div class="grid gap-1.5">
               <label for="v-prix" class="roadsign-label text-xs text-ink-soft">Votre prix (€)</label>
-              <input id="v-prix" v-model="form.price" type="number" min="1" required placeholder="1 490" class="tnum rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+              <input id="v-prix" v-model="form.price" type="number" min="1" required placeholder="1 490" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
             </div>
             <div class="grid gap-1.5">
               <label for="v-prix-neuf" class="roadsign-label text-xs text-ink-soft">Prix neuf constaté (optionnel)</label>
-              <input id="v-prix-neuf" v-model="form.originalPrice" type="number" min="1" placeholder="2 500" class="tnum rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+              <input id="v-prix-neuf" v-model="form.originalPrice" type="number" min="1" placeholder="2 500" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
             </div>
           </div>
-          <p v-if="decote" class="tnum mt-4 inline-block rounded-sm bg-borne/40 px-3 py-2 text-sm font-medium">
+          <p v-if="decote" class="tnum mt-4 inline-block rounded-xl bg-pine/10 px-3 py-2 text-sm font-medium">
             Décote affichée sur l'annonce : −{{ decote }} % — un argument qui rassure les acheteurs.
           </p>
         </template>
 
         <template v-else>
-          <h2 class="font-display text-2xl font-bold uppercase">Où et comment vous joindre ?</h2>
+          <h2 class="headline text-2xl">Où et comment vous joindre ?</h2>
           <div class="mt-6 grid gap-5 sm:grid-cols-2">
             <div class="grid gap-1.5">
               <label for="v-ville" class="roadsign-label text-xs text-ink-soft">Ville</label>
-              <input id="v-ville" v-model="form.city" type="text" required placeholder="Marseille" class="rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+              <input id="v-ville" v-model="form.city" type="text" required placeholder="Marseille" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
             </div>
             <div class="grid gap-1.5">
               <label for="v-email" class="roadsign-label text-xs text-ink-soft">E-mail</label>
-              <input id="v-email" v-model="form.email" type="email" required placeholder="vous@exemple.fr" class="rounded-sm border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+              <input id="v-email" v-model="form.email" type="email" required placeholder="vous@exemple.fr" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
             </div>
           </div>
           <p class="mt-4 text-sm text-ink-soft">
@@ -202,7 +203,7 @@ function next() {
           <button
             v-if="step > 0"
             type="button"
-            class="pressable rounded-sm border border-line px-5 py-2.5 text-sm font-medium"
+            class="pressable rounded-full border border-line bg-card px-5 py-2.5 text-sm font-medium transition-colors duration-150 hover:border-pine"
             @click="step--"
           >
             ← Retour
@@ -210,8 +211,8 @@ function next() {
           <span v-else />
           <button
             type="submit"
-            class="pressable roadsign-label rounded-sm px-6 py-3 text-sm transition-colors duration-150"
-            :class="stepValid ? 'bg-ink text-borne' : 'cursor-not-allowed bg-line text-ink-soft'"
+            class="pressable rounded-full px-6 py-3 text-[15px] font-semibold transition-colors duration-150"
+            :class="stepValid ? 'bg-pine text-white hover:bg-pine-deep' : 'cursor-not-allowed bg-line text-ink-soft'"
             :disabled="!stepValid"
           >
             {{ step === steps.length - 1 ? 'Publier l\'annonce' : 'Continuer' }}

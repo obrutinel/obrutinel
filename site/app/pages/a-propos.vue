@@ -11,7 +11,8 @@ usePageSeo({
     <Breadcrumbs :items="[{ label: 'À propos' }]" />
 
     <header class="mt-6 max-w-3xl">
-      <h1 class="text-balance font-display text-4xl font-bold uppercase leading-none sm:text-5xl">
+      <p class="roadsign-label text-xs text-pine">Des vélos qui repartent pour un tour</p>
+      <h1 class="headline mt-2 text-balance text-4xl sm:text-5xl">
         Chaque vélo mérite<br>une seconde saison
       </h1>
     </header>
@@ -45,7 +46,7 @@ usePageSeo({
       </div>
 
       <aside class="space-y-4">
-        <div class="rounded-md border border-line bg-card p-6">
+        <div class="rounded-2xl border border-line bg-card p-6">
           <h2 class="roadsign-label text-sm text-ink-soft">Nos convictions</h2>
           <ul class="mt-4 divide-y divide-line">
             <li class="py-3 font-display text-lg font-semibold leading-snug first:pt-0">La transparence vend mieux que la retouche photo.</li>
@@ -53,12 +54,12 @@ usePageSeo({
             <li class="py-3 font-display text-lg font-semibold leading-snug last:pb-0">Le meilleur vélo pour la planète est celui qui existe déjà.</li>
           </ul>
         </div>
-        <div class="rounded-md bg-borne p-6">
-          <h2 class="font-display text-2xl font-bold uppercase">Envie d'essayer ?</h2>
-          <p class="mt-2 text-sm leading-relaxed text-ink/80">
+        <div class="rounded-2xl bg-pine-deep p-6 text-card">
+          <h2 class="headline text-2xl text-card">Envie d'essayer ?</h2>
+          <p class="mt-2 text-sm leading-relaxed text-card/80">
             Parcourez les univers ou déposez une annonce de démonstration.
           </p>
-          <NuxtLink to="/#univers" class="pressable roadsign-label mt-4 inline-block rounded-sm bg-ink px-5 py-2.5 text-sm text-borne no-underline">
+          <NuxtLink to="/#univers" class="pressable mt-4 inline-block rounded-full bg-card px-5 py-2.5 text-sm font-semibold text-pine-deep no-underline">
             Voir les univers
           </NuxtLink>
         </div>

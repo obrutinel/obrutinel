@@ -16,9 +16,9 @@ déposer.
   vert-noir `#1a201b` (texte), `#5b675e` (secondaire), lignes `#dde1d8`,
   **sapin `#1e4d38`** (unique couleur de marque : CTA, liens, labels,
   sélection) + sapin profond `#143726` (hover, bloc vendre, footer),
-  **ambre `#c9701f`** + `#f0dcc3` (soft) réservés aux remises, lots et badge
-  loueur. Alias hérités (`flame`, `cartouche`, `borne`, `foret`) mappés sur
-  cette palette pour les pages intérieures, à résorber lors de leur refonte.
+  **ambre `#c9701f`** + `#f0dcc3` (soft) + `#a85a12` (deep, texte) réservés
+  aux remises, lots et badge loueur. Les alias hérités ont été résorbés :
+  tout le site utilise directement pine/amber.
 - **Par-univers** : `universes[].hue` — teinte le vélo et le socle (8 %) des
   vignettes d'univers, jamais les CTA.
 - **Typo** : `Bricolage Grotesque` (display, graisse 700, tracking −0.02em →
@@ -37,9 +37,9 @@ déposer.
 
 `RidgeScape.vue` — trois crêtes superposées + disque ambre (soleil
 d'altitude), en deux tons (`light` sur brume, `dark` sur sapin profond).
-**Réservé à deux emplacements** : le pied du hero (avec soleil) et le bloc
-vendre (version sombre) ; en écho miniature dans la carte « annonce du jour »
-et le logo (`BrandMark` : cercle sapin, crête neige, point ambre).
+**Réservé à trois emplacements** : le pied du hero de l'accueil (avec
+soleil), le bloc vendre de l'accueil et le hero de `/pro` (versions sombres) ;
+en écho miniature dans la carte « annonce du jour » et le logo (`BrandMark` : cercle sapin, crête neige, point ambre).
 La texture `.contour` (courbes de niveau) est disponible pour UNE surface
 par page maximum. Rien d'autre : pas de montagnes sur les cartes, pas de
 marquee, pas de stickers inclinés, pas de typo au trait.
@@ -67,12 +67,11 @@ marquee, pas de stickers inclinés, pas de typo au trait.
 
 ## Punchlines en réserve
 
-Baselines finalistes non retenues, à faire ressortir plus tard — une punchline
-max par page, jamais en concurrence avec la baseline officielle
-(« L'occasion de bien rouler ») :
+Baselines finalistes non retenues, **désormais placées** (une par page max,
+jamais en concurrence avec la baseline officielle « L'occasion de bien
+rouler ») :
 
-- **« Déjà roulé, jamais usé. »** — candidate pour le hero de `/vendre`.
-- **« Roulez, revendez, recommencez. »** — candidate pour le bloc vendre ou
+- **« Déjà roulé, jamais usé. »** — kicker du hero de `/vendre`.
+- **« Roulez, revendez, recommencez. »** — kicker de la section Vendre de
   `/comment-ca-marche`.
-- **« Des vélos qui repartent pour un tour. »** — candidate pour `/a-propos`
-  ou la section lots de fin de saison.
+- **« Des vélos qui repartent pour un tour. »** — kicker de `/a-propos`.

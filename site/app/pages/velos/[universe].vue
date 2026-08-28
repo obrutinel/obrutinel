@@ -59,12 +59,12 @@ const others = universes.filter(u => u.slug !== universe.slug).slice(0, 6)
 
 <template>
   <div v-if="universe">
-    <section class="border-b border-line bg-card">
+    <section class="border-b border-line" :style="{ backgroundColor: `color-mix(in srgb, ${universe.hue} 8%, #f4f6f2)` }">
       <div class="mx-auto max-w-6xl px-4 pb-8 pt-6 sm:px-6">
         <Breadcrumbs :items="[{ label: universe.h1 }]" />
         <div class="mt-6 flex flex-wrap items-end justify-between gap-6">
           <div class="max-w-2xl">
-            <h1 class="text-balance font-display text-4xl font-bold uppercase leading-none sm:text-5xl">
+            <h1 class="headline text-balance text-4xl sm:text-5xl">
               {{ universe.h1 }}
             </h1>
             <p class="mt-4 max-w-[65ch] leading-relaxed text-ink-soft">
@@ -72,17 +72,17 @@ const others = universes.filter(u => u.slug !== universe.slug).slice(0, 6)
             </p>
           </div>
           <div class="hidden h-24 w-40 md:block" aria-hidden="true">
-            <BikeIllustration :kind="universe.kind" color="#17140e" />
+            <BikeIllustration :kind="universe.kind" :color="universe.hue" />
           </div>
         </div>
       </div>
     </section>
 
     <section class="mx-auto max-w-6xl px-4 py-8 sm:px-6" aria-label="Annonces">
-      <form class="flex flex-wrap items-end gap-4 rounded-md border border-line bg-card p-4" @submit.prevent>
+      <form class="flex flex-wrap items-end gap-4 rounded-2xl border border-line bg-card p-4" @submit.prevent>
         <div class="flex flex-col gap-1">
           <label for="filtre-prix" class="roadsign-label text-xs text-ink-soft">Budget max</label>
-          <select id="filtre-prix" v-model="maxPrice" class="rounded-sm border border-line bg-paper px-3 py-2 text-sm">
+          <select id="filtre-prix" v-model="maxPrice" class="rounded-lg border border-line bg-paper px-3 py-2 text-sm">
             <option value="">Tous les prix</option>
             <option value="500">500 €</option>
             <option value="1000">1 000 €</option>
@@ -92,7 +92,7 @@ const others = universes.filter(u => u.slug !== universe.slug).slice(0, 6)
         </div>
         <div class="flex flex-col gap-1">
           <label for="filtre-vendeur" class="roadsign-label text-xs text-ink-soft">Vendeur</label>
-          <select id="filtre-vendeur" v-model="sellerType" class="rounded-sm border border-line bg-paper px-3 py-2 text-sm">
+          <select id="filtre-vendeur" v-model="sellerType" class="rounded-lg border border-line bg-paper px-3 py-2 text-sm">
             <option value="">Tous</option>
             <option value="particulier">Particuliers</option>
             <option value="boutique">Boutiques</option>
@@ -101,7 +101,7 @@ const others = universes.filter(u => u.slug !== universe.slug).slice(0, 6)
         </div>
         <div class="flex flex-col gap-1">
           <label for="filtre-tri" class="roadsign-label text-xs text-ink-soft">Trier par</label>
-          <select id="filtre-tri" v-model="sort" class="rounded-sm border border-line bg-paper px-3 py-2 text-sm">
+          <select id="filtre-tri" v-model="sort" class="rounded-lg border border-line bg-paper px-3 py-2 text-sm">
             <option value="recent">Plus récentes</option>
             <option value="prix-asc">Prix croissant</option>
             <option value="prix-desc">Prix décroissant</option>
@@ -116,12 +116,12 @@ const others = universes.filter(u => u.slug !== universe.slug).slice(0, 6)
         <BikeCard v-for="b in filtered" :key="b.slug" :bike="b" />
       </div>
 
-      <div v-else class="mt-6 rounded-md border border-dashed border-line bg-card px-6 py-14 text-center">
-        <p class="font-display text-2xl font-semibold uppercase">Aucune annonce sur ce tronçon</p>
+      <div v-else class="mt-6 rounded-2xl border border-dashed border-line bg-card px-6 py-14 text-center">
+        <p class="headline text-2xl">Aucune annonce sur ce sentier</p>
         <p class="mx-auto mt-2 max-w-[48ch] text-ink-soft">
           Élargissez le budget ou le type de vendeur — ou jetez un œil aux univers voisins ci-dessous.
         </p>
-        <button type="button" class="pressable roadsign-label mt-6 rounded-sm bg-ink px-5 py-2.5 text-sm text-borne" @click="maxPrice = ''; sellerType = ''">
+        <button type="button" class="pressable mt-6 rounded-full bg-pine px-5 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-pine-deep" @click="maxPrice = ''; sellerType = ''">
           Réinitialiser les filtres
         </button>
       </div>
@@ -135,7 +135,7 @@ const others = universes.filter(u => u.slug !== universe.slug).slice(0, 6)
       <h2 class="roadsign-label text-sm text-ink-soft">Continuer la route</h2>
       <ul class="mt-4 flex flex-wrap gap-2.5">
         <li v-for="u in others" :key="u.slug">
-          <NuxtLink :to="`/velos/${u.slug}`" class="roadsign-label inline-block rounded-sm border border-line bg-card px-3.5 py-2 text-xs no-underline transition-colors duration-150 hover:border-ink">
+          <NuxtLink :to="`/velos/${u.slug}`" class="inline-block rounded-full border border-line bg-card px-4 py-2 text-sm font-medium no-underline transition-colors duration-150 hover:border-pine hover:text-pine">
             {{ u.h1 }}
           </NuxtLink>
         </li>

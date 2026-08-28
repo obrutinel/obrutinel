@@ -70,8 +70,8 @@ const specs = computed(() => {
 
     <div class="mt-6 grid gap-8 lg:grid-cols-[7fr_5fr]">
       <div>
-        <figure class="relative overflow-hidden rounded-md border border-line" :style="{ backgroundColor: `color-mix(in srgb, ${bike.color} 10%, var(--color-card))` }">
-          <span v-if="bike.lot" class="roadsign-label absolute left-0 top-5 rounded-r-sm bg-cartouche px-3 py-1.5 text-xs text-card">
+        <figure class="relative overflow-hidden rounded-2xl border border-line" :style="{ backgroundColor: `color-mix(in srgb, ${bike.color} 6%, #f4f6f2)` }">
+          <span v-if="bike.lot" class="roadsign-label absolute left-4 top-4 rounded-full bg-amber px-3 py-1.5 text-[10.5px] text-white">
             Lot fin de saison
           </span>
           <div class="mx-auto aspect-8/5 max-w-xl p-6">
@@ -83,9 +83,9 @@ const specs = computed(() => {
         </figure>
 
         <section class="mt-8" aria-labelledby="description-title">
-          <h2 id="description-title" class="font-display text-2xl font-bold uppercase">Ce qu'en dit le vendeur</h2>
+          <h2 id="description-title" class="headline text-2xl">Ce qu'en dit le vendeur</h2>
           <ul class="mt-4 flex flex-wrap gap-2">
-            <li v-for="h in bike.highlights" :key="h" class="rounded-sm bg-borne/40 px-2.5 py-1 text-sm font-medium">
+            <li v-for="h in bike.highlights" :key="h" class="rounded-full bg-pine/10 px-3 py-1 text-sm font-medium text-pine-deep">
               {{ h }}
             </li>
           </ul>
@@ -93,7 +93,7 @@ const specs = computed(() => {
         </section>
 
         <section class="mt-8" aria-labelledby="specs-title">
-          <h2 id="specs-title" class="font-display text-2xl font-bold uppercase">Fiche technique</h2>
+          <h2 id="specs-title" class="headline text-2xl">Fiche technique</h2>
           <table class="mt-4 w-full border-collapse text-sm">
             <tbody>
               <tr v-for="[label, value] in specs" :key="label" class="border-b border-line">
@@ -107,8 +107,8 @@ const specs = computed(() => {
 
       <aside>
         <div class="lg:sticky lg:top-24">
-          <div class="rounded-md border border-line bg-card p-6">
-            <h1 class="text-balance font-display text-3xl font-bold uppercase leading-tight">
+          <div class="rounded-2xl border border-line bg-card p-6">
+            <h1 class="headline text-balance text-3xl">
               {{ bike.title }}
             </h1>
             <p class="tnum mt-1 text-sm text-ink-soft">
@@ -118,17 +118,17 @@ const specs = computed(() => {
               <PriceTag :price="bike.price" :original-price="bike.originalPrice" size="lg" />
             </div>
 
-            <button type="button" class="pressable roadsign-label mt-6 w-full rounded-sm bg-ink px-5 py-3.5 text-sm text-borne">
+            <button type="button" class="pressable mt-6 w-full rounded-full bg-pine px-5 py-3.5 text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-pine-deep">
               Contacter {{ seller.type === 'particulier' ? 'le vendeur' : seller.name }}
             </button>
             <p class="mt-2 text-center text-xs text-ink-soft">
               Démo : la messagerie arrive avec la version complète.
             </p>
 
-            <div v-if="seller.checked" class="mt-5 flex items-start gap-3 rounded-sm bg-borne/30 p-3.5 text-sm">
+            <div v-if="seller.checked" class="mt-5 flex items-start gap-3 rounded-xl bg-pine/10 p-3.5 text-sm">
               <svg class="mt-0.5 shrink-0" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                <circle cx="9" cy="9" r="8" stroke="#17140e" stroke-width="1.6" />
-                <path d="M5.5 9.3l2.3 2.3 4.7-4.9" stroke="#17140e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="9" cy="9" r="8" stroke="#1e4d38" stroke-width="1.6" />
+                <path d="M5.5 9.3l2.3 2.3 4.7-4.9" stroke="#1e4d38" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
               <p>
                 Vélo <strong>contrôlé en atelier</strong> et garanti
@@ -137,13 +137,13 @@ const specs = computed(() => {
             </div>
           </div>
 
-          <div class="mt-4 rounded-md border border-line bg-card p-6">
+          <div class="mt-4 rounded-2xl border border-line bg-card p-6">
             <div class="flex items-center justify-between gap-3">
-              <h2 class="font-display text-xl font-semibold uppercase">Le vendeur</h2>
+              <h2 class="headline text-xl">Le vendeur</h2>
               <SellerBadge :type="seller.type" />
             </div>
             <p class="mt-2 font-medium">
-              <NuxtLink :to="`/vendeur/${seller.slug}`" class="hover:text-cartouche">{{ seller.name }}</NuxtLink>
+              <NuxtLink :to="`/vendeur/${seller.slug}`" class="hover:text-pine">{{ seller.name }}</NuxtLink>
             </p>
             <p class="tnum text-sm text-ink-soft">{{ seller.city }} ({{ seller.region }}) · sur Biclette depuis {{ seller.since }}</p>
             <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-soft">{{ seller.bio }}</p>
@@ -156,7 +156,7 @@ const specs = computed(() => {
     </div>
 
     <section v-if="similar.length" class="mt-14" aria-labelledby="similaires-title">
-      <h2 id="similaires-title" class="font-display text-3xl font-bold uppercase">Dans le même univers</h2>
+      <h2 id="similaires-title" class="headline text-3xl">Dans le même univers</h2>
       <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <BikeCard v-for="b in similar" :key="b.slug" :bike="b" />
       </div>
