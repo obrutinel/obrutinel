@@ -70,7 +70,8 @@ site/
 │   │   ├── vendre.vue           # dépôt d'annonce en 4 étapes (maquette)
 │   │   ├── pro.vue              # landing boutiques & loueurs
 │   │   ├── comment-ca-marche.vue
-│   │   └── a-propos.vue
+│   │   ├── a-propos.vue
+│   │   └── vos-idees.vue        # retours utilisateurs (démo)
 │   └── error.vue                # 404
 ├── server/routes/sitemap.xml.ts
 └── public/                      # robots.txt, favicon.svg
@@ -113,11 +114,18 @@ d'occasion passent déjà par des pros — segment que le site met au premier pl
 Objectif : afficher sur chaque annonce si le prix demandé est une bonne
 affaire par rapport au marché, comme la cote auto.
 
+> **Il n'existe aucune cote officielle du vélo d'occasion en France** (l'Argus
+> auto est lui-même une référence privée, pas une norme). Acteurs privés
+> observés : CoteVélo (Ekstere), guides de décote VAE d'Upway et Cleanrider,
+> « argus » vélo vintage. Le terrain « cote vélo » est quasi vacant en SEO —
+> la phase 2 peut devenir LA référence.
+
 **Phase 1 — score heuristique (faisable dès le prototype, sans données
 externes)** : prix théorique = prix neuf constaté × courbe de décote par
 univers (route/VTT ≈ −30 % la 1re année puis −10 %/an ; VAE plus rapide car
 batterie ; enfant/ville plus douce) × facteur état × facteur kilométrage
-(± selon km/an vs médiane de l'univers) × bonus garantie pro. Score = écart
+(± selon km/an vs médiane de l'univers) × saison (±5 %) × bonus garantie
+pro. Score = écart
 entre prix demandé et prix théorique → 4 étiquettes : Très bonne affaire /
 Bonne affaire / Prix du marché / Au-dessus du marché. Transparent : la fiche
 explique le calcul (levier de confiance + SEO).
@@ -147,6 +155,37 @@ cartes d'annonces, version compacte : la pastille de score seule. Quand la
 cote n'est **pas** détectable, aucun visuel — jamais de jauge « estimée » qui
 ferait semblant. La jauge apparaît aussi comme ligne du comparateur
 d'annonces (point 5 ci-dessus).
+
+### Prix de vente conseillé au dépôt — décisions actées (simulé dans le prototype)
+
+Affiché à l'étape « Le prix » de `/vendre`, calculé par le même moteur que la
+cote (`app/utils/cote.ts`, fonctions `computeTheoretical` + `suggestPrice`) —
+un vendeur qui suit le conseil n'apparaît donc jamais « au-dessus du marché »
+sur sa propre jauge. Choix validés :
+
+- **Affichage** : fourchette de marché + **2 scénarios nommés** — « Vente
+  rapide » (théorique −7 %, part en ~1 semaine) et « Prix patient »
+  (théorique +8 %, 3-4 semaines) — chacun avec un bouton « Utiliser ce
+  prix ». Jamais de prix unique faussement précis, et **aucune suggestion
+  sans prix neuf plausible** (garde-fous 200 € – 20 000 €, année, état).
+- **Prix neuf** : saisie vendeur maintenant ; au backend, **référentiel
+  marque/modèle/année** qui pré-remplit et vérifie la saisie (alimenté par le
+  scan photo IA ci-dessous et les annonces validées).
+- **Saisonnalité** : facteur léger **±5 %** selon mois × univers (printemps
+  pour route/VTT/gravel, rentrée pour VAE/ville/cargo, fin d'année pour
+  enfant) + conseil textuel « haute/basse saison ».
+- **État affiné** : mini-checklist optionnelle à l'étape état — consommables
+  récents +3 %, facture d'achat +2 %, entretien suivi +3 %, batterie < 300
+  cycles (VAE) +4 %.
+- V2 : calibrer les deux scénarios sur les **délais de vente réels** observés
+  sur Biclette (prix → probabilité de vente à 7/30 jours).
+
+### Retours utilisateurs — page `/vos-idees`
+
+Canal de feedback produit : type de retour (idée / problème / design /
+autre), message libre, page concernée et e-mail optionnels. Démo (rien n'est
+envoyé) ; en V2, brancher sur un endpoint + notification e-mail interne.
+Liée dans le footer et le sitemap.
 
 ### Scan photo IA au dépôt d'annonce — décision actée
 

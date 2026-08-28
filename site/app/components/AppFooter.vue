@@ -40,6 +40,7 @@ const year = new Date().getFullYear()
           <li><NuxtLink to="/pro" class="text-sm text-card/85 no-underline transition-colors duration-150 hover:text-card">Boutiques & loueurs : déstockez</NuxtLink></li>
           <li><NuxtLink to="/comment-ca-marche" class="text-sm text-card/85 no-underline transition-colors duration-150 hover:text-card">Comment ça marche</NuxtLink></li>
           <li><NuxtLink to="/a-propos" class="text-sm text-card/85 no-underline transition-colors duration-150 hover:text-card">À propos</NuxtLink></li>
+          <li><NuxtLink to="/vos-idees" class="text-sm text-card/85 no-underline transition-colors duration-150 hover:text-card">Proposer une amélioration</NuxtLink></li>
         </ul>
       </nav>
     </div>

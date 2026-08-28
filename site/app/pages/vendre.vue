@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { ScanResult } from '~/components/PhotoScan.vue'
+import type { Bike } from '~/data/types'
+import type { PriceExtras } from '~/utils/cote'
 import { conditionLabels } from '~/data/bikes'
 import { universes } from '~/data/universes'
+import { suggestPrice } from '~/utils/cote'
 import { formatPrice } from '~/utils/site'
 
 usePageSeo({
@@ -45,6 +48,84 @@ const decote = computed(() => {
     return null
   return Math.round((1 - p / o) * 100)
 })
+
+// Petits plus déclarés à l'étape état : ils affinent le prix conseillé.
+const extras = reactive<PriceExtras>({})
+const extraOptions = computed(() => {
+  const opts: { key: keyof PriceExtras, label: string }[] = [
+    { key: 'drivetrain', label: 'Consommables récents (chaîne, pneus, plaquettes)' },
+    { key: 'invoice', label: 'Facture d\'achat disponible' },
+    { key: 'maintenance', label: 'Entretien suivi (carnet ou factures d\'atelier)' },
+  ]
+  if (form.universe === 'vae')
+    opts.push({ key: 'battery', label: 'Batterie récente ou moins de 300 cycles' })
+  return opts
+})
+
+const advice = computed(() => {
+  const originalPrice = Number(form.originalPrice)
+  if (!originalPrice || !form.universe || !form.year || !form.condition)
+    return null
+  return suggestPrice({
+    universe: form.universe,
+    year: Number(form.year),
+    condition: form.condition as Bike['condition'],
+    originalPrice,
+    km: Number(form.km) || undefined,
+  }, extras)
+})
+
+// Ce qui manque encore pour un conseil honnête — jamais de prix inventé.
+const adviceHint = computed(() => {
+  if (advice.value)
+    return null
+  const o = Number(form.originalPrice)
+  if (!o)
+    return 'Renseignez le prix neuf constaté pour obtenir un prix de vente conseillé.'
+  if (o < 200 || o > 20000)
+    return 'Prix neuf inhabituel : le prix conseillé est calculé entre 200 € et 20 000 €.'
+  if (!form.year)
+    return 'Ajoutez l\'année du vélo (étape « Le vélo ») pour obtenir un prix de vente conseillé.'
+  return null
+})
+
+const priceWarning = computed(() => {
+  const a = advice.value
+  const p = Number(form.price)
+  if (!a || !p)
+    return null
+  if (p > a.patient)
+    return `Au-dessus de ${formatPrice(a.patient)}, votre annonce risque d'apparaître « au-dessus du marché » sur sa jauge de cote.`
+  if (p < a.quick * 0.9)
+    return 'Vous êtes nettement sous la fourchette : vous pouvez probablement vendre plus cher.'
+  return null
+})
+
+const seasonNote = computed(() => {
+  const a = advice.value
+  if (!a?.season)
+    return null
+  return a.season === 'haute'
+    ? 'C\'est la haute saison de vente pour cet univers — le conseil en tient compte (+5 %).'
+    : 'Saison creuse pour cet univers : le conseil est ajusté (−5 %). Patientez quelques mois si vous n\'êtes pas pressé.'
+})
+
+/** Position d'un prix sur la fourchette min–max, en % (pour le rail). */
+function railPos(value: number) {
+  const a = advice.value!
+  return `${8 + ((value - a.min) / (a.max - a.min)) * 84}%`
+}
+
+const justUsedPrice = ref(false)
+function usePrice(value: number) {
+  form.price = String(value)
+  justUsedPrice.value = true
+  setTimeout(() => {
+    justUsedPrice.value = false
+  }, 1600)
+}
+const priceRing = computed(() =>
+  justUsedPrice.value ? 'ring-2 ring-pine/40 transition-shadow duration-500' : 'transition-shadow duration-500')
 
 function next() {
   if (!stepValid.value)
@@ -179,6 +260,20 @@ const scanRing = computed(() =>
                 <input id="v-km" v-model="form.km" type="number" min="0" placeholder="4 500" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
               </div>
             </div>
+            <fieldset>
+              <legend class="roadsign-label text-xs text-ink-soft">Les petits plus (optionnel — ils affinent le prix conseillé)</legend>
+              <div class="mt-2 grid gap-2 sm:grid-cols-2">
+                <label
+                  v-for="opt in extraOptions"
+                  :key="opt.key"
+                  class="flex cursor-pointer items-center gap-3 rounded-lg border px-3.5 py-2.5 text-sm transition-colors duration-150"
+                  :class="extras[opt.key] ? 'border-pine bg-pine/10' : 'border-line bg-paper hover:border-pine/50'"
+                >
+                  <input v-model="extras[opt.key]" type="checkbox" class="shrink-0 accent-[#1e4d38]">
+                  {{ opt.label }}
+                </label>
+              </div>
+            </fieldset>
           </div>
         </template>
 
@@ -190,14 +285,74 @@ const scanRing = computed(() =>
           </p>
           <div class="mt-6 grid gap-5 sm:grid-cols-2">
             <div class="grid gap-1.5">
-              <label for="v-prix" class="roadsign-label text-xs text-ink-soft">Votre prix (€)</label>
-              <input id="v-prix" v-model="form.price" type="number" min="1" required placeholder="1 490" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
-            </div>
-            <div class="grid gap-1.5">
               <label for="v-prix-neuf" class="roadsign-label text-xs text-ink-soft">Prix neuf constaté (optionnel)</label>
               <input id="v-prix-neuf" v-model="form.originalPrice" type="number" min="1" placeholder="2 500" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
             </div>
+            <div class="grid gap-1.5">
+              <label for="v-prix" class="roadsign-label text-xs text-ink-soft">Votre prix (€)</label>
+              <input id="v-prix" v-model="form.price" type="number" min="1" required placeholder="1 490" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60" :class="priceRing">
+            </div>
           </div>
+
+          <!-- Prix conseillé : uniquement quand le calcul est honnêtement possible. -->
+          <div v-if="advice" class="rise-in mt-6 rounded-xl border border-line bg-paper p-5">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+              <h3 class="headline text-lg">Prix de vente conseillé</h3>
+              <p class="tnum text-xs text-ink-soft">
+                Fourchette du marché : {{ formatPrice(advice.min) }} – {{ formatPrice(advice.max) }}
+              </p>
+            </div>
+
+            <div
+              class="relative mt-4 h-2 rounded-full"
+              style="background: linear-gradient(90deg, #1e4d38 0%, #6f9683 32%, #dde1d8 50%, #e2c194 72%, #c9701f 100%)"
+              aria-hidden="true"
+            >
+              <span class="absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-pine bg-card" :style="{ left: railPos(advice.quick) }" />
+              <span class="absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink-soft bg-card" :style="{ left: railPos(advice.patient) }" />
+            </div>
+
+            <div class="mt-5 grid gap-3 sm:grid-cols-2">
+              <div class="rounded-lg border border-line bg-card p-4">
+                <p class="roadsign-label text-xs text-pine">Vente rapide</p>
+                <p class="tnum headline mt-1 text-2xl">{{ formatPrice(advice.quick) }}</p>
+                <p class="mt-1 text-xs text-ink-soft">Part généralement en ~1 semaine.</p>
+                <button type="button" class="pressable mt-3 rounded-full border border-pine px-4 py-1.5 text-xs font-semibold text-pine transition-colors duration-150 hover:bg-pine hover:text-white" @click="usePrice(advice.quick)">
+                  Utiliser ce prix
+                </button>
+              </div>
+              <div class="rounded-lg border border-line bg-card p-4">
+                <p class="roadsign-label text-xs text-ink-soft">Prix patient</p>
+                <p class="tnum headline mt-1 text-2xl">{{ formatPrice(advice.patient) }}</p>
+                <p class="mt-1 text-xs text-ink-soft">Comptez plutôt 3 à 4 semaines.</p>
+                <button type="button" class="pressable mt-3 rounded-full border border-line px-4 py-1.5 text-xs font-semibold transition-colors duration-150 hover:border-pine hover:text-pine" @click="usePrice(advice.patient)">
+                  Utiliser ce prix
+                </button>
+              </div>
+            </div>
+
+            <p v-if="seasonNote" class="mt-4 text-sm text-ink-soft">{{ seasonNote }}</p>
+            <p v-if="priceWarning" class="mt-3 rounded-lg bg-amber-soft/60 px-3 py-2 text-sm text-amber-deep">
+              {{ priceWarning }}
+            </p>
+
+            <details class="mt-4 text-xs text-ink-soft">
+              <summary class="cursor-pointer font-medium underline-offset-2 hover:text-ink hover:underline">
+                Comment est calculé ce prix ?
+              </summary>
+              <p class="mt-2 max-w-[58ch] leading-relaxed">
+                Prix neuf constaté × courbe de décote de l'univers selon l'âge
+                × état général × kilométrage × saison, plus vos petits plus
+                (consommables, factures, entretien{{ form.universe === 'vae' ? ', batterie' : '' }}).
+                Estimation heuristique de démonstration : sur le vrai Biclette,
+                elle sera calibrée en continu avec les prix de vente réels.
+              </p>
+            </details>
+          </div>
+          <p v-else-if="adviceHint" class="mt-5 rounded-lg border border-dashed border-line bg-paper px-3.5 py-2.5 text-sm text-ink-soft">
+            {{ adviceHint }}
+          </p>
+
           <p v-if="decote" class="tnum mt-4 inline-block rounded-xl bg-pine/10 px-3 py-2 text-sm font-medium">
             Décote affichée sur l'annonce : −{{ decote }} % — un argument qui rassure les acheteurs.
           </p>

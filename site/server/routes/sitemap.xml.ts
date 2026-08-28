@@ -5,7 +5,7 @@ import { universes } from '../../app/data/universes'
 const SITE_URL = 'https://www.biclette.com'
 
 export default defineEventHandler((event) => {
-  const staticPaths = ['/', '/vendre', '/pro', '/comment-ca-marche', '/a-propos']
+  const staticPaths = ['/', '/vendre', '/pro', '/comment-ca-marche', '/a-propos', '/vos-idees']
 
   const urls = [
     ...staticPaths.map(p => ({ loc: p, priority: p === '/' ? '1.0' : '0.7' })),
