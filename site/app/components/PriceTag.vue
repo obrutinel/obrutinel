@@ -1,0 +1,24 @@
+<script setup lang="ts">
+import { discountPct, formatPrice } from '~/utils/site'
+
+const props = withDefaults(defineProps<{
+  price: number
+  originalPrice?: number
+  size?: 'md' | 'lg'
+  chip?: boolean
+}>(), { size: 'md', chip: true })
+
+const pct = computed(() => discountPct(props.price, props.originalPrice))
+</script>
+
+<template>
+  <p class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+    <span class="tnum headline" :class="size === 'lg' ? 'text-4xl' : 'text-[21px]'">
+      {{ formatPrice(price) }}
+    </span>
+    <template v-if="pct">
+      <s class="tnum text-sm text-ink-soft">{{ formatPrice(originalPrice!) }}</s>
+      <span v-if="chip" class="tnum rounded-full bg-amber-soft px-2 py-0.5 text-xs font-bold text-amber-deep">−{{ pct }}&nbsp;%</span>
+    </template>
+  </p>
+</template>
