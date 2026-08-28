@@ -7,6 +7,7 @@ import { universeKind } from '~/data/universes'
 const props = defineProps<{ bike: Bike }>()
 
 const seller = computed(() => getSeller(props.bike.sellerSlug))
+const { toggle, isSelected } = useCompare()
 </script>
 
 <template>
@@ -19,6 +20,7 @@ const seller = computed(() => getSeller(props.bike.sellerSlug))
       <div class="mx-auto aspect-16/10 max-w-72 transition-transform duration-250 ease-(--ease-out-strong) group-hover:scale-[1.03]">
         <BikeIllustration :kind="universeKind(bike.universe)" :color="bike.color" />
       </div>
+      <CoteGauge :bike="bike" variant="compact" class="absolute bottom-3 left-4 z-10" />
     </div>
 
     <div class="flex flex-1 flex-col gap-1.5 p-5">
@@ -36,6 +38,16 @@ const seller = computed(() => getSeller(props.bike.sellerSlug))
         <PriceTag :price="bike.price" :original-price="bike.originalPrice" />
         <p class="pb-0.5 text-sm text-ink-soft">{{ bike.city }}</p>
       </div>
+
+      <label class="relative z-10 mt-2 flex w-fit cursor-pointer items-center gap-2 text-sm text-ink-soft transition-colors duration-150 hover:text-ink">
+        <input
+          type="checkbox"
+          class="accent-[#1e4d38]"
+          :checked="isSelected(bike.slug)"
+          @change="toggle(bike.slug)"
+        >
+        Comparer
+      </label>
     </div>
   </article>
 </template>

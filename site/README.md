@@ -96,7 +96,9 @@ d'occasion passent déjà par des pros — segment que le site met au premier pl
 2. Upload photos + vraie publication d'annonces.
 3. Paiement séquestre + expédition (modèle Buycycle).
 4. **Cote & score « bonne affaire »** (façon Argus / La Centrale) — voir ci-dessous.
-5. **Comparateur d'annonces** : l'utilisateur sélectionne 2 à 4 annonces
+5. **Comparateur d'annonces** *(déjà simulé dans le prototype — case
+   « Comparer » sur les cartes, barre flottante, page `/comparer`)* :
+   l'utilisateur sélectionne 2 à 4 annonces
    (case « comparer » sur les cartes) et obtient un tableau côte à côte —
    prix, décote, année, kilométrage, état, taille, transmission, batterie,
    garantie, type de vendeur, distance — avec mise en évidence de la meilleure
@@ -134,7 +136,8 @@ mensuellement ; intervalle de confiance affiché plutôt qu'un prix unique.
 Pages « Cote vélo [marque modèle année] » générées = très gros levier SEO
 (le trafic Argus/La Centrale de l'occasion vélo est quasi vacant).
 
-**Visuel de la cote (demande actée).** Quand la cote est calculable pour une
+**Visuel de la cote (demande actée — jauge déjà simulée dans le prototype
+via l'heuristique phase 1, `app/utils/cote.ts` + `CoteGauge.vue`).** Quand la cote est calculable pour une
 annonce (prix neuf connu ou segment avec assez de données), la fiche affiche
 une **jauge horizontale** : la fourchette du marché (min → max du segment)
 avec le curseur du prix demandé positionné dessus, zones teintées dans le

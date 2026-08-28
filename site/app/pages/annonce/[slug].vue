@@ -118,6 +118,8 @@ const specs = computed(() => {
               <PriceTag :price="bike.price" :original-price="bike.originalPrice" size="lg" />
             </div>
 
+            <CoteGauge :bike="bike" class="mt-5" />
+
             <button type="button" class="pressable mt-6 w-full rounded-full bg-pine px-5 py-3.5 text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-pine-deep">
               Contacter {{ seller.type === 'particulier' ? 'le vendeur' : seller.name }}
             </button>
