@@ -1,0 +1,39 @@
+# Déploiement continu vers le serveur local (Proxmox / LXC).
+# Nécessite un runner self-hosted enregistré avec le label « biclette »
+# sur un repo PRIVÉ — voir site/DEPLOY.md pour l'installation complète.
+name: Déployer sur le serveur local
+
+on:
+  push:
+    branches:
+      # Branche de travail actuelle — à remplacer par `main` après merge.
+      - claude/used-bikes-marketplace-szpr4g
+  workflow_dispatch:
+
+# Un seul déploiement à la fois ; un push plus récent annule le précédent.
+concurrency:
+  group: deploy-biclette
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, biclette]
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Activer pnpm (corepack)
+        run: corepack enable
+
+      - name: Installer les dépendances
+        run: pnpm install --frozen-lockfile
+
+      - name: Générer le site statique
+        run: pnpm generate
+
+      - name: Publier vers nginx
+        # DEPLOY_DIR peut être surchargé dans le .env du runner.
+        run: rsync -a --delete .output/public/ "${DEPLOY_DIR:-/var/www/biclette}/"

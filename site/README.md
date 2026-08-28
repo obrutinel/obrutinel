@@ -20,6 +20,9 @@ pnpm generate   # build statique → .output/public
 npx serve .output/public
 ```
 
+Déploiement sur un serveur local (Proxmox LXC + nginx + CI/CD GitHub via
+runner self-hosted) : voir [`DEPLOY.md`](./DEPLOY.md).
+
 ## Stack
 
 - **Nuxt 4** (Vue 3) en **génération statique** : 129 routes pré-rendues en HTML,
