@@ -5,7 +5,10 @@ mettant en relation **particuliers**, **boutiques/ateliers** et **loueurs qui
 déstockent leur flotte en fin de saison** (l'angle différenciant du projet).
 
 > Site 100 % statique (SSG) et ultra optimisé SEO. Les annonces sont des
-> données de démonstration fictives mais réalistes.
+> données de démonstration fictives mais réalistes. La page /vendre inclut une
+> **simulation du scan photo IA** (pré-remplissage de l'annonce à partir d'une
+> photo) — tout se passe dans le navigateur ; la version réelle (vision LLM
+> côté serveur, ~0,3 ct/annonce) est décrite dans la roadmap.
 
 ## Lancer le projet
 

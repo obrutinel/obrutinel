@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ScanResult } from '~/components/PhotoScan.vue'
 import { conditionLabels } from '~/data/bikes'
 import { universes } from '~/data/universes'
 import { formatPrice } from '~/utils/site'
@@ -52,6 +53,26 @@ function next() {
     step.value++
   else done.value = true
 }
+
+// Scan photo simulé : pré-remplit sans écraser une saisie existante.
+const justScanned = ref(false)
+function onDetected(r: ScanResult) {
+  if (!form.universe)
+    form.universe = r.universe
+  if (!form.brand)
+    form.brand = r.brand
+  if (!form.model)
+    form.model = r.model
+  if (!form.year)
+    form.year = r.year
+  justScanned.value = true
+  setTimeout(() => {
+    justScanned.value = false
+  }, 1600)
+}
+
+const scanRing = computed(() =>
+  justScanned.value ? 'ring-2 ring-pine/40 transition-shadow duration-500' : 'transition-shadow duration-500')
 </script>
 
 <template>
@@ -101,10 +122,11 @@ function next() {
       <div class="mt-8 rounded-2xl border border-line bg-card p-6 sm:p-8">
         <template v-if="step === 0">
           <h2 class="headline text-2xl">Quel vélo vendez-vous ?</h2>
+          <PhotoScan class="mt-5" @detected="onDetected" />
           <div class="mt-6 grid gap-5">
             <div class="grid gap-1.5">
               <label for="v-univers" class="roadsign-label text-xs text-ink-soft">Univers</label>
-              <select id="v-univers" v-model="form.universe" required class="rounded-lg border border-line bg-paper px-3 py-2.5">
+              <select id="v-univers" v-model="form.universe" required class="rounded-lg border border-line bg-paper px-3 py-2.5" :class="scanRing">
                 <option value="" disabled>Choisir…</option>
                 <option v-for="u in universes" :key="u.slug" :value="u.slug">{{ u.h1 }}</option>
               </select>
@@ -112,16 +134,16 @@ function next() {
             <div class="grid gap-5 sm:grid-cols-2">
               <div class="grid gap-1.5">
                 <label for="v-marque" class="roadsign-label text-xs text-ink-soft">Marque</label>
-                <input id="v-marque" v-model="form.brand" type="text" required placeholder="Canyon, Lapierre…" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+                <input id="v-marque" v-model="form.brand" type="text" required placeholder="Canyon, Lapierre…" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60" :class="scanRing">
               </div>
               <div class="grid gap-1.5">
                 <label for="v-modele" class="roadsign-label text-xs text-ink-soft">Modèle</label>
-                <input id="v-modele" v-model="form.model" type="text" required placeholder="Ultimate CF SL 8" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+                <input id="v-modele" v-model="form.model" type="text" required placeholder="Ultimate CF SL 8" class="rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60" :class="scanRing">
               </div>
             </div>
             <div class="grid gap-1.5 sm:max-w-40">
               <label for="v-annee" class="roadsign-label text-xs text-ink-soft">Année</label>
-              <input id="v-annee" v-model="form.year" type="number" min="1970" max="2026" placeholder="2023" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60">
+              <input id="v-annee" v-model="form.year" type="number" min="1970" max="2026" placeholder="2023" class="tnum rounded-lg border border-line bg-paper px-3 py-2.5 placeholder:text-ink-soft/60" :class="scanRing">
             </div>
           </div>
         </template>
